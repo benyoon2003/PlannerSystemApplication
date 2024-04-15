@@ -1,23 +1,16 @@
 package controller;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.JOptionPane;
-
 import model.Day;
 import model.Event;
+import model.IEvent;
 import model.PlannerModel;
 import model.User;
 import model.Utils;
-import view.EventFrameView;
 import view.EventView;
 import view.PlannerView;
-import view.ScheduleFrame;
 
 /**
  * This is the controller for an NU planner system. This class implements both the
@@ -96,7 +89,6 @@ public class NUPlannerController implements IFeatures {
     this.eventView = eventView;
   }
 
-
   @Override
   public void createNewEvent(String user, String name,
                              String location, boolean online, Day startDay,
@@ -111,7 +103,7 @@ public class NUPlannerController implements IFeatures {
   }
 
   @Override
-  public void modifyEvent(Event originalEvent, String name, String location,
+  public void modifyEvent(IEvent originalEvent, String name, String location,
                           boolean online, Day startDay, int startTime, Day endDay,
                           int endTime, List<String> invitedUsers, String user) {
     try {
@@ -123,7 +115,7 @@ public class NUPlannerController implements IFeatures {
   }
 
   @Override
-  public void removeEvent(String user, Event eventToRemove) {
+  public void removeEvent(String user, IEvent eventToRemove) {
     try {
       model.removeEvent(user, eventToRemove);
     } catch (IllegalArgumentException er){

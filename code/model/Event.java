@@ -153,7 +153,7 @@ public final class Event implements IEvent {
    *
    * @param attendees a list of User
    */
-  void setInvitedUsers(List<User> attendees) {
+  public void setInvitedUsers(List<User> attendees) {
     if (attendees == null) {
       throw new IllegalArgumentException("Given List cannot be null");
     }
@@ -202,7 +202,7 @@ public final class Event implements IEvent {
   /**
    * Removes this event from the schedule of all users in the list of invitees.
    */
-  void removeAll() {
+  public void removeAll() {
     for (User attendee : this.invitedUsers) {
       attendee.observeSchedule().remove(this);
     }
@@ -223,7 +223,7 @@ public final class Event implements IEvent {
    *
    * @param name a String
    */
-  void setName(String name) {
+  public void setName(String name) {
     this.name = Objects.requireNonNull(name);
   }
 
@@ -232,7 +232,7 @@ public final class Event implements IEvent {
    *
    * @param location a String
    */
-  void setLocation(String location) {
+  public void setLocation(String location) {
     this.location = Objects.requireNonNull(location);
   }
 
@@ -241,7 +241,7 @@ public final class Event implements IEvent {
    *
    * @param online a boolean
    */
-  void setOnline(boolean online) {
+  public void setOnline(boolean online) {
     this.online = online;
   }
 
@@ -250,7 +250,7 @@ public final class Event implements IEvent {
    *
    * @param startDay a Day
    */
-  void setStartDay(Day startDay) {
+  public void setStartDay(Day startDay) {
     this.startDay = Objects.requireNonNull(startDay);
   }
 
@@ -259,7 +259,7 @@ public final class Event implements IEvent {
    *
    * @param time an int
    */
-  void setStartTime(int time) {
+  public void setStartTime(int time) {
     if (time >= 0 && time < 2400) {
       this.startTime = time;
     } else {
@@ -272,7 +272,7 @@ public final class Event implements IEvent {
    *
    * @param endDay a Day
    */
-  void setEndDay(Day endDay) {
+  public void setEndDay(Day endDay) {
     this.endDay = Objects.requireNonNull(endDay);
   }
 
@@ -281,7 +281,7 @@ public final class Event implements IEvent {
    *
    * @param time an int
    */
-  void setEndTime(int time) {
+  public void setEndTime(int time) {
     if (time >= 0 && time < 2400) {
       this.endTime = time;
     } else {
@@ -294,7 +294,7 @@ public final class Event implements IEvent {
    *
    * @param newHost a User
    */
-  void setHost(User newHost) {
+  public void setHost(User newHost) {
     this.host = newHost;
   }
 

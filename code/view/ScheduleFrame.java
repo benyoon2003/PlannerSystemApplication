@@ -216,7 +216,7 @@ public class ScheduleFrame extends JFrame implements EventView {
   }
 
   @Override
-  public List<String> observeAvailUsersFromEF() {
+  public List<String> observeSelectedUsersFromEF() {
     return this.availUser.getSelectedValuesList();
   }
 

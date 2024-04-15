@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class User {
   private String uid;
-  private List<Event> schedule;
+  private List<IEvent> schedule;
 
   /**
    * This is the constructor for a user which takes in a uid and a list of events
@@ -22,7 +22,7 @@ public class User {
    * @param schedule the list of events that the user participates in
    * @throws IllegalArgumentException if the given schedule has conflicts
    */
-  public User(String uid, List<Event> schedule) {
+  public User(String uid, List<IEvent> schedule) {
     this.uid = uid;
     this.schedule = new ArrayList<>();
     if (conflict(schedule)) {
@@ -40,9 +40,9 @@ public class User {
    * @return a boolean value to whether there is a conflict, true for conflict false for
    *         no conflict.
    */
-  private boolean conflict(List<Event> schedule) {
-    List<Event> copy = new ArrayList<Event>(schedule);
-    for (Event event : schedule) {
+  private boolean conflict(List<IEvent> schedule) {
+    List<IEvent> copy = new ArrayList<>(schedule);
+    for (IEvent event : schedule) {
       if (copy.isEmpty()) {
         return false;
       }
@@ -56,7 +56,7 @@ public class User {
     return false;
   }
 
-  private boolean conflictHelper(Event one, Event two) {
+  private boolean conflictHelper(IEvent one, IEvent two) {
     List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday,
             Day.Thursday, Day.Friday, Day.Saturday);
     int startTimeOfOne = daysOrder.indexOf(one.observeStartDayOfEvent())
@@ -94,7 +94,7 @@ public class User {
    * @param e the given event
    * @return the time of the event in extended dateTime
    */
-  private int convertEventToStartTime(Event e) {
+  private int convertEventToStartTime(IEvent e) {
     List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
     return daysOrder.indexOf(e.observeStartDayOfEvent()) * 2400 + e.observeStartTimeOfEvent();
@@ -104,9 +104,9 @@ public class User {
    * This class is a small implementation of the comparator interface to be
    * used to sort the schedule.
    */
-  private class EventComparator implements Comparator<Event> {
+  private class EventComparator implements Comparator<IEvent> {
     @Override
-    public int compare(Event e1, Event e2) {
+    public int compare(IEvent e1, IEvent e2) {
       return convertEventToStartTime(e1) - convertEventToStartTime(e2);
     }
 
@@ -120,8 +120,8 @@ public class User {
    *
    * @param e the event wanting to be added
    */
-  void addEvent(Event e) {
-    List<Event> copy = new ArrayList<>(this.schedule);
+  void addEvent(IEvent e) {
+    List<IEvent> copy = new ArrayList<>(this.schedule);
     copy.add(e);
     if (!conflict(copy)) {
       this.schedule.add(e);
@@ -137,9 +137,9 @@ public class User {
    * @param day the day given
    * @return a list of events on that day.
    */
-  List<Event> eventsOnDay(Day day) {
-    List<Event> events = new ArrayList<>();
-    for (Event e : this.schedule) {
+  List<IEvent> eventsOnDay(Day day) {
+    List<IEvent> events = new ArrayList<>();
+    for (IEvent e : this.schedule) {
       if (e.observeStartDayOfEvent().equals(day) || e.observeEndDayOfEvent().equals(day)) {
         events.add(e);
       }
@@ -147,7 +147,7 @@ public class User {
     return events;
   }
 
-  public List<Event> userEvents() {
+  public List<IEvent> userEvents() {
     return this.schedule;
   }
 
@@ -157,11 +157,11 @@ public class User {
     return this.uid;
   }
 
-  public List<Event> observeSchedule() {
+  public List<IEvent> observeSchedule() {
     return this.schedule;
   }
 
-  public void setSchedule(List<Event> schedule) {
+  public void setSchedule(List<IEvent> schedule) {
     this.schedule = schedule;
   }
 

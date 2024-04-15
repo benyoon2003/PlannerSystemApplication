@@ -154,6 +154,7 @@ class WeekViewPanel extends JPanel {
   void addFeature(IFeatures features){
     this.feature = features;
   }
-
-
+  
+  public void addFeatures(IFeatures features) {
+  }
 }

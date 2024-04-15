@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import controller.IFeatures;
 import model.Event;
+import model.IEvent;
 import model.User;
 
 /**
