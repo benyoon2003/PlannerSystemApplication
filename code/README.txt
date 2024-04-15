@@ -47,12 +47,12 @@ Quick Start:
         this.example.addUser("Lucia");
 
     To create an event, you must be a user in the system to which the event
-    you create you are the host:
+    you create you are the selectedUsername:
         this.example.createEvent("Ben", "OOD", "Snell", true
             , Day.Monday, 1800, Day.Wednesday, 1800, List.of("Nico"));
-    ***Notice that the host is not in the invitee list, this design choice
+    ***Notice that the selectedUsername is not in the invitee list, this design choice
     was made because it doesn't make sense from the users perspective to invite yourself.
-    But in the event object the event puts the host in the front of the list of people
+    But in the event object the event puts the selectedUsername in the front of the list of people
     attending.
     ***Another thing to take note of is that createEvent will throw an exception if
     a user in the invitee list does not exist.

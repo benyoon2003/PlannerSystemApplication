@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -17,7 +16,6 @@ import javax.swing.ListSelectionModel;
 
 import controller.IFeatures;
 import model.Day;
-import model.Event;
 import model.IEvent;
 import model.Utils;
 
@@ -37,7 +35,7 @@ import model.Utils;
  *           to modify components.
  */
 public class EventFrameView extends JFrame implements EventView {
-  private final String host;
+  private final String selectedUsername;
   private final JPanel eventPanel;
   private JTextArea name;
   private JComboBox<String> isOnline;
@@ -60,9 +58,9 @@ public class EventFrameView extends JFrame implements EventView {
    * sets the host according to the given username.
    *
    * @param availUsers the list of available users in the event.
-   * @param host       a username as a String
+   * @param selectedUsername       a username as a String
    */
-  public EventFrameView(String[] availUsers, String host) {
+  public EventFrameView(String[] availUsers, String selectedUsername) {
     this.eventPanel = new JPanel();
     makeNamePanel("");
     makeLocationPanel(false, "");
@@ -72,7 +70,7 @@ public class EventFrameView extends JFrame implements EventView {
     makeEndTimePanel("");
     makeAvailUserPanel(availUsers, new String[]{});
     makeButtonPanel();
-    this.host = host;
+    this.selectedUsername = selectedUsername;
   }
 
   /**
@@ -81,10 +79,10 @@ public class EventFrameView extends JFrame implements EventView {
    *
    * @param availUsers   String array
    */
-  public EventFrameView(IEvent originalEvent, String[] availUsers, String host) {
+  public EventFrameView(IEvent originalEvent, String[] availUsers, String selectedUsername) {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.originalEvent = originalEvent;
-    this.host = host;
+    this.selectedUsername = selectedUsername;
     this.eventPanel = new JPanel();
     this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.Y_AXIS));
 
@@ -237,12 +235,12 @@ public class EventFrameView extends JFrame implements EventView {
     availUserPanel.setLayout(new BoxLayout(availUserPanel, BoxLayout.Y_AXIS));
     int indexOfHost = -1;
     for (int indexAvail = 0; indexAvail < availUsers.length; indexAvail++) {
-      if (host.equals(availUsers[indexAvail])) {
+      if (selectedUsername.equals(availUsers[indexAvail])) {
         indexOfHost = indexAvail;
       }
     }
     availUsers[indexOfHost] = availUsers[0];
-    availUsers[0] = host;
+    availUsers[0] = selectedUsername;
     this.availUser = new JList<>(availUsers);
     this.availUser.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     int[] selectionIndices = new int[prevSelected.length];
@@ -375,7 +373,7 @@ public class EventFrameView extends JFrame implements EventView {
 
   @Override
   public String observeHostFromEF() {
-    return this.host;
+    return this.selectedUsername;
   }
 
   @Override
@@ -386,7 +384,7 @@ public class EventFrameView extends JFrame implements EventView {
   @Override
   public void addFeatures(IFeatures features) {
     createButton.addActionListener(evt ->
-            features.createNewEvent(this.host,
+            features.createNewEvent(this.selectedUsername,
             this.observeEventNameFromEF(),
             this.observeLocationFromEF(),
             this.observeIsOnlineFromEF(),
@@ -405,9 +403,9 @@ public class EventFrameView extends JFrame implements EventView {
             this.observeEndDayFromEF(),
             this.observeEndTimeFromEF(),
             this.observeSelectedUsersFromEF(),
-            this.host));
+            this.selectedUsername));
     removeButton.addActionListener(evt ->
-            features.removeEvent(host, this.originalEvent));
+            features.removeEvent(selectedUsername, this.originalEvent));
   }
 
 }
