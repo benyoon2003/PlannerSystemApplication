@@ -9,6 +9,7 @@ import model.Event;
 import model.IEvent;
 import model.ReadOnlyPlannerModel;
 import model.User;
+import model.Utils;
 
 /**
  * This is the text version of the view of a planner model.
@@ -92,8 +93,8 @@ public class NUPlannerTextView implements PlannerView {
   }
 
   @Override
-  public void reMakeView(User host, IFeatures features) {
-    this.host = host;
+  public void reMakeView(String selectedUsername, IFeatures features) {
+    this.host = Utils.findUser(selectedUsername, this.model.getListOfUser());
     System.out.println(displayUserSchedule());
   }
 

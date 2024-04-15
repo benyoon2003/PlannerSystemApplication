@@ -24,7 +24,7 @@ public interface PlannerView {
   /**
    * This sets the listener for the view which then connects the entire view to the controller..
    *
-   * @param listener is the controller being connected.
+   * @param features is the controller being connected.
    */
   void addFeatures(IFeatures features);
 
@@ -33,10 +33,10 @@ public interface PlannerView {
    * This is a method that reloads the view after a model change which
    * reflects the changes in the model or a change in host.
    *
-   * @param host     the new host being viewed or same host with new view
+   * @param selectedUsername the new user being viewed or same user with new view
    * @param feature the controller needed to be reconnected to the view.
    */
-  void reMakeView(User host, IFeatures feature);
+  void reMakeView(String selectedUsername, IFeatures feature);
 
   /**
    * Displays the given error message recieved from the controller.
