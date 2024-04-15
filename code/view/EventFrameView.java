@@ -290,10 +290,6 @@ public class EventFrameView extends JFrame implements EventView {
             !endingTime.getText().isEmpty();
   }
 
-  @Override
-  public void addFeatures(ActionListener listener) {
-
-  }
 
   @Override
   public void display() {
