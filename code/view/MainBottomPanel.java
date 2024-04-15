@@ -2,7 +2,9 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,8 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import controller.IFeatures;
 import model.ReadOnlyPlannerModel;
 import model.User;
+import model.Utils;
 
 
 /**
@@ -37,6 +41,8 @@ class MainBottomPanel extends JPanel {
 
   private JButton createEvent;
   private JButton scheduleEvent;
+
+  private IFeatures features;
 
 
   /**
@@ -98,6 +104,25 @@ class MainBottomPanel extends JPanel {
     createEvent.setActionCommand("Create Event Main Button");
     scheduleEvent = new JButton("Schedule Event");
     scheduleEvent.setActionCommand("Schedule Event Button");
+    createEvent.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        List<User> userList = new ArrayList<>(model.getListOfUser());
+        userList.remove(selectedUser);
+        EventView newEvent = new EventFrameView(Utils.convertToStringArray(model.getListOfUser()),
+                selectedUser.toString());
+        newEvent.addFeatures(features);
+      }
+    });
+    scheduleEvent.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        EventView scheduleFrame =
+                new ScheduleFrame(Utils.convertToStringArray(model.getListOfUser()));
+        scheduleFrame.addFeatures(features);
+        scheduleFrame.display();
+      }
+    });
     this.add(createEvent);
     this.add(scheduleEvent);
   }
@@ -114,12 +139,12 @@ class MainBottomPanel extends JPanel {
   /**
    * Sets the listeners for the JButtons.
    *
-   * @param listener an ActionListener
+   * @param features the feature performing commands.
    */
-  void setListener(ActionListener listener) {
-    createEvent.addActionListener(listener);
-    scheduleEvent.addActionListener(listener);
-    selectedUser.addActionListener(listener);
+  void addFeature(IFeatures features) {
+    this.features = features;
+    selectedUser.addActionListener(evt ->
+            features.switchUser(observeUserSelectionBox().toString()));
   }
 
 }

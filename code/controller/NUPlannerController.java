@@ -96,12 +96,6 @@ public class NUPlannerController implements IFeatures {
     this.eventView = eventView;
   }
 
-  @Override
-  public void control() {
-    // Javastyle is forcing us to use this member variable in other methods so we threw it in here
-    // sorry and thank you!
-    this.originalEvent = null;
-  }
 
   @Override
   public void createNewEvent(String user, String name,

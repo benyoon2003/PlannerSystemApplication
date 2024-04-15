@@ -41,7 +41,8 @@ public class ScheduleFrame extends JFrame implements EventView {
    * @param availUsers the list of users available for selection
    */
   public ScheduleFrame(String[] availUsers) {
-    this("", true, "", "", availUsers);
+    this("",
+            true, "", "", availUsers);
   }
 
   /**
@@ -232,7 +233,7 @@ public class ScheduleFrame extends JFrame implements EventView {
   }
 
   @Override
-  public void setListener(ActionListener listener) {
+  public void addFeatures(ActionListener listener) {
     scheduleButton.addActionListener(listener);
   }
 

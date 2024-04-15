@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import controller.IFeatures;
 import model.Day;
 import model.Event;
 import model.ReadOnlyPlannerModel;
@@ -35,7 +36,8 @@ class WeekViewPanel extends JPanel {
 
   private Rectangle bounds;
 
-  private ActionListener listener;
+  private IFeatures feature;
+
 
 
   /**
@@ -139,23 +141,19 @@ class WeekViewPanel extends JPanel {
       this.add(new EventRedPanel(e,
               daysOrder.indexOf(e.observeEndDayOfEvent()) * verticalLineOffset, 0,
               verticalLineOffset, end,
-              horizontalLineOffset, this.listener));
+              horizontalLineOffset, Utils.convertToStringArray(e.observeInvitedUsers())));
     } else {
       this.add(new EventRedPanel(e,
               (daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
               verticalLineOffset, this.bounds.height,
-              horizontalLineOffset, this.listener));
+              horizontalLineOffset, Utils.convertToStringArray(e.observeInvitedUsers())));
       drawEndOfEvent(e, daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1));
     }
   }
 
-  /**
-   * Sets the panel's listener.
-   *
-   * @param listener an ActionListener
-   */
-  void setListener(ActionListener listener) {
-    this.listener = listener;
+  void addFeature(IFeatures features){
+    this.feature = features;
   }
+
 
 }

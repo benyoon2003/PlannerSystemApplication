@@ -40,7 +40,6 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   private IFeatures feature;
 
 
-
   /**
    * Creates a default main frame view that displays the schedule of the first
    * User in the database.
@@ -139,8 +138,8 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   @Override
   public void addFeatures(IFeatures features) {
     this.feature = features;
-    this.planner.addFeatures(features);
-    this.bottom.addFeatures(features);
+    this.planner.addFeature(features);
+    this.bottom.addFeature(features);
   }
 
 
