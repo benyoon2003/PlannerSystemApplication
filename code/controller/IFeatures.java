@@ -24,7 +24,7 @@ public interface IFeatures {
                    Day startDay, int startTime, Day endDay,
                    int endTime, List<String> invitedUsers, String user);
 
-  void removeEvent(Event eventToRemove);
+  void removeEvent(String user, Event eventToRemove);
 
   void switchUser(String username);
 
