@@ -108,7 +108,6 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.add(mainPanel);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
-    this.setListener(listener);
   }
 
   /**

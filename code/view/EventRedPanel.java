@@ -40,7 +40,7 @@ class EventRedPanel extends JPanel implements MouseListener {
 
   private final int horiz;
 
-  private final ActionListener listener;
+  private final String[] availUsers;
 
   /**
    * Constructs an EventRedPanel with the given event, coordinates, and size specifications.
@@ -51,9 +51,8 @@ class EventRedPanel extends JPanel implements MouseListener {
    * @param width    the width as int
    * @param height   the height as int
    * @param horiz    the horizontal offset as int
-   * @param listener an ActionListener
    */
-  EventRedPanel(Event e, int x, int y, int width, int height, int horiz, ActionListener listener) {
+  EventRedPanel(Event e, int x, int y, int width, int height, int horiz, String[] availUsers) {
     this.event = Objects.requireNonNull(e);
     this.setBounds(x, y, width, height);
     this.addMouseListener(this);
@@ -61,7 +60,7 @@ class EventRedPanel extends JPanel implements MouseListener {
     this.width = width;
     this.height = height;
     this.horiz = horiz;
-    this.listener = listener;
+    this.availUsers = availUsers;
   }
 
   /**
@@ -72,7 +71,7 @@ class EventRedPanel extends JPanel implements MouseListener {
    */
   @Override
   public void mouseClicked(MouseEvent e) {
-    this.listener.actionPerformed(new ActionEvent(this.event, 1, "Set Event View"));
+    new EventFrameView(this.event, this.availUsers);
   }
 
   /**

@@ -68,7 +68,6 @@ public class NUPlannerController implements IFeatures {
     this.view = Objects.requireNonNull(view);
     this.eventView = Objects.requireNonNull(eventView);
     this.host = Objects.requireNonNull(host);
-    this.view.setListener(this);
   }
 
   /**

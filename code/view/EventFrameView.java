@@ -73,10 +73,10 @@ public class EventFrameView extends JFrame implements EventView {
    * @param availUsers   String array
    * @param host         a User
    */
-  public EventFrameView(Event originalEvent, String host, String[] availUsers) {
+  public EventFrameView(Event originalEvent, String[] availUsers) {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.originalEvent = originalEvent;
-    this.host = host;
+    this.host = originalEvent.observeHost().toString();
     this.eventPanel = new JPanel();
     this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.Y_AXIS));
 
