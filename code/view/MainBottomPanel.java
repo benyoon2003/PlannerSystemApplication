@@ -112,6 +112,7 @@ class MainBottomPanel extends JPanel {
         EventView newEvent = new EventFrameView(Utils.convertToStringArray(model.getListOfUser()),
                 selectedUser.toString());
         newEvent.addFeatures(features);
+        newEvent.display();
       }
     });
     scheduleEvent.addActionListener(new ActionListener() {
