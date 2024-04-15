@@ -22,7 +22,7 @@ public class LenientStrat implements SchedulingStrategy {
         if (attendees.isEmpty()) {
           break;
         }
-        Event e = new WorkdayStrat().chooseTime(model, host, name,
+        IEvent e = new WorkdayStrat().chooseTime(model, host, name,
                 isOnline, location, attendees, duration);
         return e;
       } catch (IllegalArgumentException ignored) {

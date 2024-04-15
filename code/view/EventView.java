@@ -15,6 +15,8 @@ import model.Day;
  */
 public interface EventView {
 
+  void addFeatures(IFeatures features);
+
   /**
    * This method displays the event frame view where the event dialogue can be seen.
    */
@@ -110,11 +112,4 @@ public interface EventView {
    * @return a String of the host username
    */
   int observeDurationFromSF();
-
-  /**
-   * This method sets the listeners for all actions throughout the event view.
-   *
-   * @param listener the listener receiving the action calls
-   */
-  void addFeatures(IFeatures features);
 }

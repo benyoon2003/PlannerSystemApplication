@@ -32,7 +32,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
 
   private final MainBottomPanel bottom;
 
-  private User selected;
+  private String selected;
 
   private JMenuItem add;
 
@@ -112,12 +112,12 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    *
    * @param selected is the user that is currently selected for the view.
    */
-  public void reMakeView(User selected, IFeatures feature) {
+  public void reMakeView(String selectedUsername, IFeatures feature) {
     this.getContentPane().removeAll();
     this.mainPanel = new JPanel();
     this.mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-    this.planner = new WeekViewPanel(this.model, selected);
-    this.selected = selected;
+    this.planner = new WeekViewPanel(this.model, selectedUsername);
+    this.selected = selectedUsername;
     this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
     this.add(mainPanel);

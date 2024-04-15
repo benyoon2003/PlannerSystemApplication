@@ -291,6 +291,11 @@ public class EventFrameView extends JFrame implements EventView {
   }
 
   @Override
+  public void addFeatures(ActionListener listener) {
+
+  }
+
+  @Override
   public void display() {
     this.setVisible(true);
   }

@@ -57,6 +57,7 @@ class EventRedPanel extends JPanel implements MouseListener {
    * @param height   the height as int
    * @param horiz    the horizontal offset as int
    */
+
   EventRedPanel(IEvent e, int x, int y, int width, int height, int horiz, String[] availUsers,
                 String selected, IFeatures features) {
     this.event = Objects.requireNonNull(e);
@@ -79,6 +80,7 @@ class EventRedPanel extends JPanel implements MouseListener {
    */
   @Override
   public void mouseClicked(MouseEvent e) {
+
     EventView viewed = new EventFrameView(this.event,
             this.availUsers, this.selectedUsername);
     viewed.addFeatures(features);
