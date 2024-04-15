@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import controller.IFeatures;
 import model.Day;
 import model.Event;
+import model.IEvent;
 import model.ReadOnlyPlannerModel;
 import model.User;
 import model.Utils;
@@ -32,7 +33,7 @@ import model.Utils;
  */
 class WeekViewPanel extends JPanel {
   private final ReadOnlyPlannerModel model;
-  private final User selected;
+  private final String selectedUsername;
 
   private Rectangle bounds;
 
@@ -45,11 +46,11 @@ class WeekViewPanel extends JPanel {
    * it is trying to view and the selected user whose schedule is being viewed.
    *
    * @param model    the given model being viewed
-   * @param selected the selected user for the view.
+   * @param selectedUsername the selected user for the view.
    */
-  WeekViewPanel(ReadOnlyPlannerModel model, User selected) {
+  WeekViewPanel(ReadOnlyPlannerModel model, String selectedUsername) {
     this.model = Objects.requireNonNull(model);
-    this.selected = selected;
+    this.selectedUsername = selectedUsername;
   }
 
 
@@ -60,7 +61,7 @@ class WeekViewPanel extends JPanel {
     this.bounds = getBounds();
     this.removeAll();
     setSize(this.bounds.width, this.bounds.height);
-    for (Event e : model.selectSchedule(this.selected.toString())) {
+    for (IEvent e : model.selectSchedule(this.selectedUsername)) {
       drawEvent(e);
     }
     drawLines(g2d);
@@ -101,7 +102,7 @@ class WeekViewPanel extends JPanel {
    *
    * @param e the given event trying to be displayed.
    */
-  private void drawEvent(Event e) {
+  private void drawEvent(IEvent e) {
     java.util.List<Day> daysOrder = java.util.List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
@@ -117,7 +118,8 @@ class WeekViewPanel extends JPanel {
     this.add(new EventRedPanel(e,
             daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
             verticalLineOffset, end - start,
-            horizontalLineOffset, Utils.convertToStringArray(model.getListOfUser())));
+            horizontalLineOffset, Utils.convertToStringArray(model.getListOfUser()),
+            this.selectedUsername));
 
   }
 
@@ -130,7 +132,7 @@ class WeekViewPanel extends JPanel {
    * @param e            the event being continued to be drawn.
    * @param lastDayDrawn the previous day of the event drawn.
    */
-  private void drawEndOfEvent(Event e, Day lastDayDrawn) {
+  private void drawEndOfEvent(IEvent e, Day lastDayDrawn) {
     java.util.List<Day> daysOrder = List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
@@ -154,7 +156,7 @@ class WeekViewPanel extends JPanel {
   void addFeature(IFeatures features){
     this.feature = features;
   }
-  
+
   public void addFeatures(IFeatures features) {
   }
 }

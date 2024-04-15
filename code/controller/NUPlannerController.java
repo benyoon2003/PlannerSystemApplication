@@ -24,7 +24,6 @@ public class NUPlannerController implements IFeatures {
   private EventView eventView;
   private User host;
   private final SchedulingStrategy strat;
-  private Event originalEvent;
 
   /**
    * Constructs a NUPlannerController, which takes in inputs from the PlannerView, modifies
@@ -62,31 +61,6 @@ public class NUPlannerController implements IFeatures {
     this.eventView = Objects.requireNonNull(eventView);
     this.host = Objects.requireNonNull(host);
     this.view.addFeatures(this);
-  }
-
-
-  /**
-   * Observes the eventView member variable.
-   *
-   * @return EventView
-   * @implNote This method is package protected and does not exist in the interface
-   *           because it is specific to this implementation of PlannerController and
-   *           other controllers may not utilize EventView.
-   */
-  EventView observeEventView() {
-    return this.eventView;
-  }
-
-  /**
-   * Sets the eventView member variable.
-   *
-   * @param eventView an EventView
-   * @implNote This method is package protected and does not exist in the interface
-   *           because it is specific to this implementation of PlannerController and
-   *           other controllers may not utilize EventView.
-   */
-  void setEventView(EventView eventView) {
-    this.eventView = eventView;
   }
 
   @Override

@@ -14,6 +14,7 @@ import java.util.Objects;
 import javax.swing.JPanel;
 
 import model.Event;
+import model.IEvent;
 
 /**
  * The EventRedPanel is a custom JPanel that implements MouseListener. It represents
@@ -30,7 +31,7 @@ class EventRedPanel extends JPanel implements MouseListener {
    * an event via red rectangles on the week view.
    */
 
-  private final Event event;
+  private final IEvent event;
 
   private final int y;
 
@@ -52,7 +53,7 @@ class EventRedPanel extends JPanel implements MouseListener {
    * @param height   the height as int
    * @param horiz    the horizontal offset as int
    */
-  EventRedPanel(Event e, int x, int y, int width, int height, int horiz, String[] availUsers) {
+  EventRedPanel(IEvent e, int x, int y, int width, int height, int horiz, String[] availUsers) {
     this.event = Objects.requireNonNull(e);
     this.setBounds(x, y, width, height);
     this.addMouseListener(this);
@@ -71,7 +72,7 @@ class EventRedPanel extends JPanel implements MouseListener {
    */
   @Override
   public void mouseClicked(MouseEvent e) {
-    new EventFrameView(this.event, this.availUsers);
+    new EventFrameView(this.event, this.availUsers,);
   }
 
   /**

@@ -63,6 +63,7 @@ public class EventFrameView extends JFrame implements EventView {
    * @param host       a username as a String
    */
   public EventFrameView(String[] availUsers, String host) {
+    this.eventPanel = new JPanel();
     makeNamePanel("");
     makeLocationPanel(false, "");
     makeStartDayPanel(Day.Sunday);
@@ -290,6 +291,11 @@ public class EventFrameView extends JFrame implements EventView {
   }
 
   @Override
+  public void addFeatures(ActionListener listener) {
+
+  }
+
+  @Override
   public void display() {
     this.setVisible(true);
   }
@@ -405,7 +411,7 @@ public class EventFrameView extends JFrame implements EventView {
             this.observeSelectedUsersFromEF(),
             this.host));
     removeButton.addActionListener(evt ->
-            features.removeEvent(this.originalEvent));
+            features.removeEvent(this.host, this.originalEvent));
   }
 
 }
