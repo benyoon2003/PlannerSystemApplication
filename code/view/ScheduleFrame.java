@@ -233,8 +233,12 @@ public class ScheduleFrame extends JFrame implements EventView {
   }
 
   @Override
-  public void addFeatures(ActionListener listener) {
-    scheduleButton.addActionListener(listener);
+  public void addFeatures(IFeatures features) {
+    scheduleButton.addActionListener(evt ->
+            features.scheduleEvent(
+                    this.host, observeEventNameFromEF(),
+                    observeIsOnlineFromEF(), observeLocationFromEF(),
+                    observeAvailUsersFromEF(), observeDurationFromSF()));
   }
 
   @Override
