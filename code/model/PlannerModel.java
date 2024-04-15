@@ -14,12 +14,12 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    *
    * @param path a String
    */
-  public void uploadSchedule(String path);
+  void uploadSchedule(String path);
 
   /**
    * Save each user’s schedule to an XML file.
    */
-  public void saveSchedule();
+  void saveSchedule();
 
   /**
    * Select one of the users to display their schedule.
@@ -27,7 +27,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param user a String
    * @return List of Event
    */
-  public List<IEvent> selectSchedule(String user);
+  List<IEvent> selectSchedule(String user);
 
   /**
    * Create an event to which the given user is the host.
@@ -44,7 +44,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @return an Event
    * @throws IllegalArgumentException if the invited list of users are not in the system
    */
-  public IEvent createEvent(String user, String name, String location, boolean online,
+  IEvent createEvent(String user, String name, String location, boolean online,
                            Day startDay, int startTime, Day endDay,
                            int endTime, List<String> invitedUsers);
 
@@ -54,7 +54,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param user the given User
    * @param e    the given Event
    */
-  public void removeEvent(String user, IEvent e);
+  void removeEvent(String user, IEvent e);
 
   /**
    * Create, modify, or remove an event on a user’s schedule,
@@ -71,7 +71,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param invitedUsers the new list of invited users
    * @param user         the new host
    */
-  public void modifyEvent(IEvent e, String name, String location, boolean online,
+  void modifyEvent(IEvent e, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
                           int endTime, List<String> invitedUsers, String user);
 
@@ -83,7 +83,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param time an int
    * @return a List of Event
    */
-  public List<IEvent> eventsAtThisTime(String user, int time);
+  List<IEvent> eventsAtThisTime(String user, int time);
 
   /**
    * Adds a default user to the database only if the given username does not exist.
@@ -91,7 +91,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param name a String
    * @return a User
    */
-  public User addUser(String name);
+  User addUser(String name);
 
   /**
    * Adds a User to the database of users and checks if the user already exists in the database.
@@ -102,7 +102,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    *
    * @param user a User
    */
-  public void addUser(User user);
+  void addUser(User user);
 
   /**
    * Finds and returns a list of events for a specified user on a given day.
@@ -111,21 +111,21 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param day  the specifc day being requested
    * @return the list of events on that day.
    */
-  public List<IEvent> scheduleOnDay(String user, Day day);
+  List<IEvent> scheduleOnDay(String user, Day day);
 
   /**
    * Returns the list of User in the database.
    *
    * @return a list of User
    */
-  public List<User> getListOfUser();
+  List<User> getListOfUser();
 
   /**
    * Allows for the client to query the main event schedule.
    *
    * @return the main schedule
    */
-  public List<IEvent> mainSchedule();
+  List<IEvent> mainSchedule();
 
   /**
    * Finds the event on the given user's day and time.
@@ -135,5 +135,5 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param day  a Day
    * @return an Event
    */
-  public IEvent findEvent(String user, int time, Day day);
+  IEvent findEvent(String user, int time, Day day);
 }
