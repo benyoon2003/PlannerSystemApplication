@@ -54,7 +54,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.model = Objects.requireNonNull(model);
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-    this.selected = this.model.getListOfUser().get(0);
+    this.selected = this.model.getListOfUser().get(0).toString();
     this.planner = new WeekViewPanel(this.model, this.selected);
     this.bottom = new MainBottomPanel(this.model, selected);
     this.mainPanel.add(this.planner);
@@ -110,7 +110,6 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    * update the entire frame but a client shouldn't be able to remake the
    * view outside the view.</p>
    *
-   * @param selected is the user that is currently selected for the view.
    */
   public void reMakeView(String selectedUsername, IFeatures feature) {
     this.getContentPane().removeAll();

@@ -21,7 +21,6 @@ import view.PlannerView;
 public class NUPlannerController implements IFeatures {
   private final PlannerModel model;
   private final PlannerView view;
-  private EventView eventView;
   private User host;
   private final SchedulingStrategy strat;
 
@@ -50,15 +49,13 @@ public class NUPlannerController implements IFeatures {
    * @param model     a PlannerModel
    * @param strat     a SchedulingStrategy
    * @param view      a PlannerView
-   * @param eventView an EventView
    * @param host      a User
    */
   public NUPlannerController(PlannerModel model, SchedulingStrategy strat,
-                             PlannerView view, EventView eventView, User host) {
+                             PlannerView view, User host) {
     this.model = Objects.requireNonNull(model);
     this.strat = Objects.requireNonNull(strat);
     this.view = Objects.requireNonNull(view);
-    this.eventView = Objects.requireNonNull(eventView);
     this.host = Objects.requireNonNull(host);
     this.view.addFeatures(this);
   }
@@ -100,7 +97,7 @@ public class NUPlannerController implements IFeatures {
   @Override
   public void switchUser(String username) {
     this.host = Utils.findUser(username, this.model.getListOfUser());
-    view.reMakeView(Utils.findUser(username, this.model.getListOfUser()), this);
+    view.reMakeView(username, this);
   }
 
   @Override

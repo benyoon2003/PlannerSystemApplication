@@ -35,9 +35,9 @@ class MainBottomPanel extends JPanel {
 
   private final ReadOnlyPlannerModel model;
 
-  private final User selected;
+  private final String selectedUsername;
 
-  private JComboBox<User> selectedUser;
+  private JComboBox<String> selectedUser;
 
   private JButton createEvent;
   private JButton scheduleEvent;
@@ -52,11 +52,11 @@ class MainBottomPanel extends JPanel {
    * @param model a ReadOnlyPlannerModel
    * @param host  a User to represent the host
    */
-  MainBottomPanel(ReadOnlyPlannerModel model, User host) {
+  MainBottomPanel(ReadOnlyPlannerModel model, String selectedUsername) {
     this.model = Objects.requireNonNull(model);
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(800, -600));
-    this.selected = host;
+    this.selectedUsername = selectedUsername;
 
     makeSelectUserBox();
     makeEventButtons();
@@ -70,8 +70,8 @@ class MainBottomPanel extends JPanel {
    * the selected user.
    */
   private void makeSelectUserBox() {
-    this.selectedUser = new JComboBox<>(convertToUserArray(model.getListOfUser()));
-    this.selectedUser.setSelectedItem(selected);
+    this.selectedUser = new JComboBox<>(Utils.convertToStringArray(model.getListOfUser()));
+    this.selectedUser.setSelectedItem(this.selectedUser);
     this.add(selectedUser);
     this.selectedUser.setActionCommand("Select User Box");
   }

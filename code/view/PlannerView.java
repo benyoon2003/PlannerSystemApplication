@@ -36,7 +36,7 @@ public interface PlannerView {
    * @param host     the new host being viewed or same host with new view
    * @param feature the controller needed to be reconnected to the view.
    */
-  void reMakeView(User host, IFeatures feature);
+  void reMakeView(String userName, IFeatures feature);
 
   /**
    * Displays the given error message recieved from the controller.

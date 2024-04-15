@@ -92,8 +92,8 @@ public class NUPlannerTextView implements PlannerView {
   }
 
   @Override
-  public void reMakeView(User host, IFeatures features) {
-    this.host = host;
+  public void reMakeView(String selectedUser, IFeatures features) {
+    this.host = selectedUser;
     System.out.println(displayUserSchedule());
   }
 
