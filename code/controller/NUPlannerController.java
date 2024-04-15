@@ -31,7 +31,6 @@ public class NUPlannerController implements IFeatures {
   private EventView eventView;
   private User host;
   private final SchedulingStrategy strat;
-  private ActionCommand cmd;
   private Event originalEvent;
 
   /**
@@ -72,97 +71,6 @@ public class NUPlannerController implements IFeatures {
     this.view.addFeatures(this);
   }
 
-  /**
-   * This is where all the actions performed in view are delegated to their respective commands.
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()) {
-      case "Set Event View":
-        this.originalEvent = (Event) e.getSource();
-        this.cmd = new SetEventViewCMD(model, eventView, this.originalEvent);
-        cmd.execute();
-        this.eventView = cmd.observeEventView();
-        eventView.setListener(this);
-        eventView.display();
-        break;
-      // Within EventFrameView
-      case "Create Event Button":
-        this.cmd = new CreateEventCMD(this.model, this.eventView, this.host);
-        eventFrameButton();
-        break;
-      // Within EventFrameView
-      case "Modify Event Button":
-        this.cmd = new ModifyEventCMD(this.model, this.eventView, this.originalEvent, this.host);
-        System.out.println(this.originalEvent.observeStartDayOfEvent());
-        System.out.println("HERE" + this.eventView.observeStartDayFromEF());
-        eventFrameButton();
-        break;
-      case "Remove Event Button":
-        this.cmd = new RemoveEventCMD(this.model, this.eventView, this.host);
-        eventFrameButton();
-        break;
-      case "Add Menu Bar":
-        this.cmd = new AddCMD(this.model, this.view, this.host, this);
-        this.cmd.execute();
-        break;
-      case "Save Menu Bar":
-        this.cmd = new SaveCMD(this.model);
-        this.cmd.execute();
-        break;
-      case "Select User Box":
-        this.host = view.observeUserSelectionBox();
-        view.reMakeView(host, this);
-        break;
-      case "Create Event Main Button":
-        List<User> userList = new ArrayList<>(model.getListOfUser());
-        userList.remove(host);
-        EventView newEvent = new EventFrameView(Utils.convertToStringArray(model.getListOfUser()),
-                host.toString());
-        newEvent.setListener(this);
-        this.eventView = newEvent;
-        this.eventView.display();
-        break;
-      case "Schedule Event Button":
-        EventView scheduleFrame = new ScheduleFrame(Utils.convertToStringArray(
-                model.getListOfUser()));
-        this.eventView = scheduleFrame;
-        scheduleFrame.setListener(this);
-        scheduleFrame.display();
-        break;
-      case "Schedule Event Finish":
-        this.cmd = new ScheduleEventCMD(this.model, this.eventView,
-                this.host, this.strat);
-        eventFrameButton();
-        break;
-      default:
-        break;
-    }
-  }
-
-  /**
-   * This is a helper method that surrounds the functionality of buttons in the event frame as
-   * they share some features that have to do with valid input and the options pane.
-   */
-  private void eventFrameButton() {
-    if (eventView.validInput()) {
-      try {
-        this.cmd.execute();
-        this.eventView.close();
-        view.reMakeView(host, this);
-        eventView.outputEventDetails();
-      } catch (IllegalArgumentException er) {
-        JOptionPane.showMessageDialog((Component) this.eventView, er.getMessage());
-      }
-    } else {
-      System.out.println("ERROR");
-      System.out.println("Enter all of the information first.\n");
-      JOptionPane.showMessageDialog((Component) this.eventView,
-              "Enter all of the information first.\n");
-    }
-  }
 
   /**
    * Observes the eventView member variable.

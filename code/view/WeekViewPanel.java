@@ -16,6 +16,7 @@ import model.Day;
 import model.Event;
 import model.ReadOnlyPlannerModel;
 import model.User;
+import model.Utils;
 
 /**
  * This panel is used to view a users schedule for the week. It shows 7 columns
@@ -114,7 +115,7 @@ class WeekViewPanel extends JPanel {
     this.add(new EventRedPanel(e,
             daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
             verticalLineOffset, end - start,
-            horizontalLineOffset, this.listener));
+            horizontalLineOffset, Utils.convertToStringArray(model.getListOfUser())));
 
   }
 
