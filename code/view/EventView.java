@@ -95,7 +95,7 @@ public interface EventView {
    *
    * @return String array of usernames
    */
-  List<String> observeAvailUsersFromEF();
+  List<String> observeSelectedUsersFromEF();
 
   /**
    * Observes the host of the event in the Event Frame.

@@ -17,6 +17,7 @@ import javax.swing.ListSelectionModel;
 
 import controller.IFeatures;
 import model.Day;
+import model.Event;
 import model.Utils;
 
 /**
@@ -51,6 +52,7 @@ public class EventFrameView extends JFrame implements EventView {
   private JButton modifyButton;
 
   private JButton removeButton;
+  private Event originalEvent;
 
   /**
    * Constructs a default EventFrameView that contains default components of an event and
@@ -59,41 +61,32 @@ public class EventFrameView extends JFrame implements EventView {
    * @param availUsers the list of available users in the event.
    * @param host       a username as a String
    */
-  public EventFrameView(String[] availUsers, String host) {
-    this("", true, "", Day.Monday, "",
-            Day.Monday, "", availUsers, host, new String[]{});
-  }
+//  public EventFrameView(String[] availUsers, String host) {
+//    this("", true, "", Day.Monday, "",
+//            Day.Monday, "", availUsers, host, new String[]{});
+//  }
 
   /**
    * Constructs a EventFrameView using the pre-existing details of the event allowing
    * for the user to choose to modify parts of an existing event.
    *
-   * @param eventName    a String
-   * @param isOnline     a boolean
-   * @param location     a String
-   * @param startDay     a Day
-   * @param startTime    a String
-   * @param endDay       a Day
-   * @param endTime      a Day
    * @param availUsers   String array
    * @param host         a User
-   * @param prevSelected String array
    */
-  public EventFrameView(String eventName, boolean isOnline, String location,
-                        Day startDay, String startTime, Day endDay, String endTime,
-                        String[] availUsers, String host, String[] prevSelected) {
+  public EventFrameView(Event originalEvent, String host, String[] availUsers) {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    this.originalEvent = originalEvent;
     this.host = host;
     this.eventPanel = new JPanel();
     this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.Y_AXIS));
 
-    makeNamePanel(eventName);
-    makeLocationPanel(isOnline, location);
-    makeStartDayPanel(startDay);
-    makeStartTimePanel(startTime);
-    makeEndDayPanel(endDay);
-    makeEndTimePanel(endTime);
-    makeAvailUserPanel(availUsers, prevSelected);
+    makeNamePanel(this.originalEvent.observeName());
+    makeLocationPanel(this.originalEvent.observeOnline(), this.originalEvent.observeLocation());
+    makeStartDayPanel(this.originalEvent.observeStartDayOfEvent());
+    makeStartTimePanel(Integer.toString(this.originalEvent.observeStartTimeOfEvent()));
+    makeEndDayPanel(this.originalEvent.observeEndDayOfEvent());
+    makeEndTimePanel(Integer.toString(this.originalEvent.observeEndTimeOfEvent()));
+    makeAvailUserPanel(availUsers, Utils.convertToStringArray(originalEvent.observeInvitedUsers()));
     makeButtonPanel();
 
     this.add(this.eventPanel);
@@ -366,7 +359,7 @@ public class EventFrameView extends JFrame implements EventView {
   }
 
   @Override
-  public List<String> observeAvailUsersFromEF() {
+  public List<String> observeSelectedUsersFromEF() {
     List<String> selectedUsers = this.availUser.getSelectedValuesList();
     return selectedUsers;
   }
@@ -383,7 +376,8 @@ public class EventFrameView extends JFrame implements EventView {
 
   @Override
   public void addFeatures(IFeatures features) {
-    createButton.addActionListener(evt -> features.createNewEvent(this.host,
+    createButton.addActionListener(evt ->
+            features.createNewEvent(this.host,
             this.observeEventNameFromEF(),
             this.observeLocationFromEF(),
             this.observeIsOnlineFromEF(),
@@ -391,8 +385,9 @@ public class EventFrameView extends JFrame implements EventView {
             this.observeStartTimeFromEF(),
             this.observeEndDayFromEF(),
             this.observeEndTimeFromEF(),
-            this.observeAvailUsersFromEF()));
-    modifyButton.addActionListener(evt -> features.modifyEvent(Utils.findUser(host, )
+            this.observeSelectedUsersFromEF()));
+    modifyButton.addActionListener(evt ->
+            features.modifyEvent(this.originalEvent,
             this.observeEventNameFromEF(),
             this.observeLocationFromEF(),
             this.observeIsOnlineFromEF(),
@@ -400,9 +395,10 @@ public class EventFrameView extends JFrame implements EventView {
             this.observeStartTimeFromEF(),
             this.observeEndDayFromEF(),
             this.observeEndTimeFromEF(),
-            this.observeAvailUsersFromEF(),
+            this.observeSelectedUsersFromEF(),
             this.host));
-    removeButton.addActionListener();
+    removeButton.addActionListener(evt ->
+            features.removeEvent(this.originalEvent));
   }
 
 }
