@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 
+import controller.IFeatures;
 import model.Day;
 
 import javax.swing.JPanel;
@@ -214,7 +215,7 @@ public class ScheduleFrame extends JFrame implements EventView {
   }
 
   @Override
-  public List<String> observeAvailUsersFromEF() {
+  public List<String> observeSelectedUsersFromEF() {
     return this.availUser.getSelectedValuesList();
   }
 
@@ -232,8 +233,8 @@ public class ScheduleFrame extends JFrame implements EventView {
   }
 
   @Override
-  public void setListener(ActionListener listener) {
-    scheduleButton.addActionListener(listener);
+  public void addFeatures(IFeatures features) {
+
   }
 
   @Override

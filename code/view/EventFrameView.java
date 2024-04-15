@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 import controller.IFeatures;
 import model.Day;
 import model.Event;
+import model.IEvent;
 import model.Utils;
 
 /**
@@ -52,7 +53,7 @@ public class EventFrameView extends JFrame implements EventView {
   private JButton modifyButton;
 
   private JButton removeButton;
-  private Event originalEvent;
+  private IEvent originalEvent;
 
   /**
    * Constructs a default EventFrameView that contains default components of an event and
@@ -61,22 +62,28 @@ public class EventFrameView extends JFrame implements EventView {
    * @param availUsers the list of available users in the event.
    * @param host       a username as a String
    */
-//  public EventFrameView(String[] availUsers, String host) {
-//    this("", true, "", Day.Monday, "",
-//            Day.Monday, "", availUsers, host, new String[]{});
-//  }
+  public EventFrameView(String[] availUsers, String host) {
+    makeNamePanel("");
+    makeLocationPanel(false, "");
+    makeStartDayPanel(Day.Sunday);
+    makeStartTimePanel("");
+    makeEndDayPanel(Day.Sunday);
+    makeEndTimePanel("");
+    makeAvailUserPanel(availUsers, new String[]{});
+    makeButtonPanel();
+    this.host = host;
+  }
 
   /**
    * Constructs a EventFrameView using the pre-existing details of the event allowing
    * for the user to choose to modify parts of an existing event.
    *
    * @param availUsers   String array
-   * @param host         a User
    */
-  public EventFrameView(Event originalEvent, String[] availUsers) {
+  public EventFrameView(IEvent originalEvent, String[] availUsers, String host) {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.originalEvent = originalEvent;
-    this.host = originalEvent.observeHost().toString();
+    this.host = host;
     this.eventPanel = new JPanel();
     this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.Y_AXIS));
 

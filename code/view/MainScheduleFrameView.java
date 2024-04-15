@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import controller.IFeatures;
 import model.Event;
+import model.IEvent;
 import model.ReadOnlyPlannerModel;
 import model.User;
 import model.Utils;

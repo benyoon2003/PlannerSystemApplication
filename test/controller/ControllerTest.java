@@ -7,6 +7,7 @@ import java.util.List;
 
 import model.Day;
 import model.Event;
+import model.IEvent;
 import model.NuPlanner;
 import model.PlannerModel;
 import model.User;
@@ -29,7 +30,7 @@ public class ControllerTest {
   private PlannerModel model;
   private NUPlannerTextView view;
   private NUPlannerController controller;
-  private Event testEvent;
+  private IEvent testEvent;
   private User ben;
   private User nico;
   private EventView ev;
@@ -45,7 +46,7 @@ public class ControllerTest {
     this.testEvent = this.model.createEvent("Ben", "OOD", "Snell", false,
             Day.Monday, 0, Day.Wednesday, 1000, List.of());
     this.controller = new NUPlannerController(this.model, new AnyTimeStrat(), this.view,
-            new EventFrameView(arr, ben.toString()), ben);
+            new EventFrameView(this.testEvent, arr), ben);
   }
 
   /**
@@ -175,9 +176,8 @@ public class ControllerTest {
     exampleSchedulingControllerAnytime();
     this.view.render(testEvent, "Schedule Event Finish");
     this.view.render(testEvent, "Create Event Main Button");
-    this.ev = new EventFrameView("Test Event", true, "NEU", Day.Thursday,
-            "500", Day.Thursday, "600", new String[]{ben.toString(),
-            nico.toString()}, ben.toString(), new String[]{nico.toString()});
+    this.ev = new EventFrameView(new Event("Test Event", true, "NEU", Day.Thursday,
+            "500", Day.Thursday, "600", List.of(nico)), new String[]{nico.toString(), ben.toString()}, ben.toString());
     this.controller.setEventView(this.ev);
     this.view.render(testEvent, "Create Event Button");
     String[] output0 = this.view.displayUserSchedule().split("\n");
@@ -185,7 +185,7 @@ public class ControllerTest {
     this.view.reMakeView(nico, this.controller);
     this.view.render(testEvent, "Select User Box");
     String[] output1 = this.view.displayUserSchedule().split("\n");
-    Event event = this.model.findEvent("Nico", 500, Day.Thursday);
+    IEvent event = this.model.findEvent("Nico", 500, Day.Thursday);
     assertEquals(event.observeHost(), ben);
     assertEquals(event.observeLocation(), "NEU");
     assertEquals(output1[7],"       time: Thursday: 500 -> Thursday: 600");
@@ -207,7 +207,7 @@ public class ControllerTest {
     this.view.reMakeView(nico, this.controller);
     this.view.render(testEvent, "Select User Box");
     String[] output3 = this.view.displayUserSchedule().split("\n");
-    Event event1 = this.model.findEvent("Nico", 500, Day.Thursday);
+    IEvent event1 = this.model.findEvent("Nico", 500, Day.Thursday);
     assertEquals(event1.observeHost(), ben);
     assertEquals(event1.observeLocation(), "NEU");
     assertEquals(output3[7],"       time: Thursday: 500 -> Thursday: 600");
@@ -229,7 +229,7 @@ public class ControllerTest {
     this.view.reMakeView(nico, this.controller);
     this.view.render(testEvent, "Select User Box");
     String[] output5 = this.view.displayUserSchedule().split("\n");
-    Event event2 = this.model.findEvent("Nico", 500, Day.Thursday);
+    IEvent event2 = this.model.findEvent("Nico", 500, Day.Thursday);
     assertEquals(event2.observeHost(), ben);
     assertEquals(event2.observeLocation(), "NEU");
     assertEquals(output5[7],"       time: Thursday: 500 -> Thursday: 600");
@@ -257,7 +257,7 @@ public class ControllerTest {
     this.view.render(testEvent, "Select User Box");
     String[] output1 = this.view.displayUserSchedule().split("\n");
     assertEquals(output1[7], "       time: Thursday: 500 -> Friday: 600");
-    Event event = this.model.findEvent("Nico", 500, Day.Thursday);
+    IEvent event = this.model.findEvent("Nico", 500, Day.Thursday);
     assertEquals(event.observeHost(), ben);
     assertEquals(event.observeLocation(), "NEU");
     assertEquals(event.observeInvitedUsers(), List.of(ben, nico));
@@ -280,7 +280,7 @@ public class ControllerTest {
     this.view.render(testEvent, "Select User Box");
     String[] output1 = this.view.displayUserSchedule().split("\n");
     assertEquals(output1[7], "       time: Thursday: 500 -> Friday: 600");
-    Event event = this.model.findEvent("Nico", 500, Day.Thursday);
+    IEvent event = this.model.findEvent("Nico", 500, Day.Thursday);
     assertEquals(event.observeHost(), ben);
     assertEquals(event.observeLocation(), "NEU");
     assertEquals(event.observeInvitedUsers(), List.of(ben, nico));
@@ -303,7 +303,7 @@ public class ControllerTest {
     this.view.render(testEvent, "Select User Box");
     String[] output1 = this.view.displayUserSchedule().split("\n");
     assertEquals(output1[7], "       time: Thursday: 500 -> Friday: 600");
-    Event event = this.model.findEvent("Nico", 500, Day.Thursday);
+    IEvent event = this.model.findEvent("Nico", 500, Day.Thursday);
     assertEquals(event.observeHost(), ben);
     assertEquals(event.observeLocation(), "NEU");
     assertEquals(event.observeInvitedUsers(), List.of(ben, nico));

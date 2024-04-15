@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import controller.IFeatures;
 import model.Day;
 import model.Event;
+import model.IEvent;
 import model.ReadOnlyPlannerModel;
 import model.User;
 
@@ -82,7 +83,6 @@ public class NUPlannerTextView implements PlannerView {
 
   @Override
   public void render(IEvent event, String cmd) {
-    listener.actionPerformed(new ActionEvent(event, 1, cmd));
     System.out.println(displayUserSchedule());
   }
 
@@ -92,9 +92,14 @@ public class NUPlannerTextView implements PlannerView {
   }
 
   @Override
-  public void reMakeView(User host, ActionListener listener) {
+  public void reMakeView(User host, IFeatures features) {
     this.host = host;
     System.out.println(displayUserSchedule());
+  }
+
+  @Override
+  public void showError(String msg) {
+
   }
 
   @Override

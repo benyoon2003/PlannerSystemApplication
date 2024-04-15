@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Day;
 import model.Event;
+import model.IEvent;
 import model.User;
 import view.EventView;
 
@@ -20,11 +21,11 @@ public interface IFeatures {
                       Day startDay, int startTime, Day endDay,
                       int endTime, List<String> invitedUsers);
 
-  void modifyEvent(Event originalEvent, String name, String location, boolean online,
+  void modifyEvent(IEvent originalEvent, String name, String location, boolean online,
                    Day startDay, int startTime, Day endDay,
                    int endTime, List<String> invitedUsers, String user);
 
-  void removeEvent(String user, Event eventToRemove);
+  void removeEvent(String user, IEvent eventToRemove);
 
   void switchUser(String username);
 

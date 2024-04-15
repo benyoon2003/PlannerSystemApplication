@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import controller.IFeatures;
 import model.Day;
 import model.Event;
 import model.ReadOnlyPlannerModel;
@@ -158,4 +159,6 @@ class WeekViewPanel extends JPanel {
     this.listener = listener;
   }
 
+  public void addFeatures(IFeatures features) {
+  }
 }
