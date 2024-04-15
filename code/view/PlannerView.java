@@ -18,7 +18,7 @@ public interface PlannerView {
    *
    * @throws IOException if render fails for some reason
    */
-  void render(Event event, String cmd);
+  void render(IEvent event, String cmd);
 
   /**
    * This sets the listener for the view which then connects the entire view to the controller..

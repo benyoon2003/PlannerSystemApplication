@@ -27,7 +27,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param user a String
    * @return List of Event
    */
-  public List<Event> selectSchedule(String user);
+  public List<IEvent> selectSchedule(String user);
 
   /**
    * Create an event to which the given user is the host.

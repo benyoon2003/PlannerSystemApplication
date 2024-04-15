@@ -14,7 +14,7 @@ public interface ReadOnlyPlannerModel {
    *
    * @param user a String
    */
-  public List<Event> selectSchedule(String user);
+  public List<IEvent> selectSchedule(String user);
 
   /**
    * See events occurring at a given time for the given user.
