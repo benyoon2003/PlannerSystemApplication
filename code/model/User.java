@@ -137,7 +137,7 @@ public class User {
    * @param day the day given
    * @return a list of events on that day.
    */
-  List<IEvent> eventsOnDay(Day day) {
+  public List<IEvent> eventsOnDay(Day day) {
     List<IEvent> events = new ArrayList<>();
     for (IEvent e : this.schedule) {
       if (e.observeStartDayOfEvent().equals(day) || e.observeEndDayOfEvent().equals(day)) {

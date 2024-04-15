@@ -19,7 +19,7 @@ public interface ReadOnlyPlannerModel {
   /**
    * See events occurring at a given time for the given user.
    */
-  public List<Event> eventsAtThisTime(String user, int time);
+  public List<IEvent> eventsAtThisTime(String user, int time);
 
 
   /**
@@ -29,7 +29,7 @@ public interface ReadOnlyPlannerModel {
    * @param day  the specifc day being requested
    * @return the list of events on that day.
    */
-  public List<Event> scheduleOnDay(String user, Day day);
+  public List<IEvent> scheduleOnDay(String user, Day day);
 
   /**
    * Returns a list of users that are present in the system database.
