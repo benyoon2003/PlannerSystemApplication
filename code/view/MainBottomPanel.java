@@ -132,8 +132,8 @@ class MainBottomPanel extends JPanel {
    *
    * @return a User
    */
-  User observeUserSelectionBox() {
-    return (User) this.selectedUser.getSelectedItem();
+  String observeUserSelectionBox() {
+    return (String) this.selectedUser.getSelectedItem();
   }
 
   /**

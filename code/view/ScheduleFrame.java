@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 
+import controller.IFeatures;
 import model.Day;
 
 import javax.swing.JPanel;

@@ -67,6 +67,7 @@ public class NUPlannerController implements IFeatures {
     try {
       model.createEvent(user, name, location, online, startDay, startTime, endDay, endTime,
               invitedUsers);
+      view.reMakeView(this.host.toString(), this);
     } catch (IllegalArgumentException er){
       view.showError(er.getMessage());
     }
@@ -80,6 +81,7 @@ public class NUPlannerController implements IFeatures {
     try {
       model.modifyEvent(originalEvent, name, location, online, startDay, startTime, endDay, endTime,
               invitedUsers, user);
+      view.reMakeView(this.host.toString(), this);
     } catch (IllegalArgumentException er){
       view.showError(er.getMessage());
     }
@@ -89,6 +91,7 @@ public class NUPlannerController implements IFeatures {
   public void removeEvent(String user, IEvent eventToRemove) {
     try {
       model.removeEvent(user, eventToRemove);
+      view.reMakeView(this.host.toString(), this);
     } catch (IllegalArgumentException er){
       view.showError(er.getMessage());
     }
@@ -104,7 +107,7 @@ public class NUPlannerController implements IFeatures {
   public void uploadSchedule(String path) {
     try{
       model.addUser(Utils.readXML(path, model.getListOfUser()));
-      view.reMakeView(host, this);
+      view.reMakeView(host.toString(), this);
     } catch (IllegalArgumentException | NullPointerException er) {
       view.showError(er.getMessage());
     }
@@ -122,5 +125,6 @@ public class NUPlannerController implements IFeatures {
                             String location, List<String> attendees, int duration) {
     this.strat.chooseTime(this.model, Utils.findUser(host, this.model.getListOfUser()),
             eventName, isOnline, location, attendees, duration);
+    view.reMakeView(this.host.toString(), this);
   }
 }

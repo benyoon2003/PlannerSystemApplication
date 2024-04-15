@@ -9,6 +9,7 @@ import model.Event;
 import model.IEvent;
 import model.ReadOnlyPlannerModel;
 import model.User;
+import model.Utils;
 
 /**
  * This is the text version of the view of a planner model.
@@ -16,7 +17,7 @@ import model.User;
 public class NUPlannerTextView implements PlannerView {
 
   private final ReadOnlyPlannerModel model;
-  private User host;
+  private String host;
   private ActionListener listener;
 
   /**
@@ -26,7 +27,7 @@ public class NUPlannerTextView implements PlannerView {
    */
   public NUPlannerTextView(ReadOnlyPlannerModel model) {
     this.model = model;
-    this.host = this.model.getListOfUser().get(0);
+    this.host = this.model.getListOfUser().get(0).toString();
   }
 
 
@@ -103,7 +104,7 @@ public class NUPlannerTextView implements PlannerView {
   }
 
   @Override
-  public User observeUserSelectionBox() {
+  public String observeUserSelectionBox() {
     return this.host;
   }
 }
