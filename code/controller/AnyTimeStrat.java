@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.Day;
 import model.Event;
+import model.IEvent;
 import model.PlannerModel;
 import model.User;
 
@@ -12,9 +13,9 @@ import model.User;
  */
 public class AnyTimeStrat implements SchedulingStrategy {
   @Override
-  public Event chooseTime(PlannerModel model, User host, String name,
-                          boolean isOnline, String location,
-                          List<String> attendees, int duration) {
+  public IEvent chooseTime(PlannerModel model, User host, String name,
+                           boolean isOnline, String location,
+                           List<String> attendees, int duration) {
     java.util.List<Day> daysOrder = java.util.List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);

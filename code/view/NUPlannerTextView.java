@@ -38,7 +38,7 @@ public class NUPlannerTextView implements PlannerView {
    */
   private String daySchedule(String user, Day day) {
     String output = "";
-    for (Event e : this.model.scheduleOnDay(user, day)) {
+    for (IEvent e : this.model.scheduleOnDay(user, day)) {
       output += e.toString();
     }
     return output;
@@ -81,7 +81,7 @@ public class NUPlannerTextView implements PlannerView {
   }
 
   @Override
-  public void render(Event event, String cmd) {
+  public void render(IEvent event, String cmd) {
     listener.actionPerformed(new ActionEvent(event, 1, cmd));
     System.out.println(displayUserSchedule());
   }

@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import model.Event;
+import model.IEvent;
 import model.PlannerModel;
 import model.User;
 
@@ -24,7 +25,7 @@ public interface SchedulingStrategy {
    * @param duration  an int
    * @return an Event
    */
-  Event chooseTime(PlannerModel model, User host, String name,
-                   boolean isOnline, String location,
-                   List<String> attendees, int duration);
+  IEvent chooseTime(PlannerModel model, User host, String name,
+                    boolean isOnline, String location,
+                    List<String> attendees, int duration);
 }

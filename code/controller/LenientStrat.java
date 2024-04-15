@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import model.Event;
+import model.IEvent;
 import model.PlannerModel;
 import model.User;
 
@@ -12,9 +13,9 @@ import model.User;
  */
 public class LenientStrat implements SchedulingStrategy {
   @Override
-  public Event chooseTime(PlannerModel model, User host, String name,
-                          boolean isOnline, String location,
-                          List<String> attendees, int duration) {
+  public IEvent chooseTime(PlannerModel model, User host, String name,
+                                 boolean isOnline, String location,
+                                 List<String> attendees, int duration) {
     for (String attendee : attendees) {
       try {
         attendees.remove(attendee);

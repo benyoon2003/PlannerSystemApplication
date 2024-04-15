@@ -15,7 +15,7 @@ import java.util.Objects;
  * @implNote The event class's methods arte package protected meaning only other classes within the
  *           model are able to access them.
  */
-public final class Event {
+public final class Event implements IEvent {
   private String name;
   private String location;
   private boolean online;
@@ -73,6 +73,7 @@ public final class Event {
    *
    * @return the name of the event
    */
+  @Override
   public String observeName() {
     return this.name;
   }
@@ -82,6 +83,7 @@ public final class Event {
    *
    * @return the location of the event.
    */
+  @Override
   public String observeLocation() {
     return this.location;
   }
@@ -91,6 +93,7 @@ public final class Event {
    *
    * @return whether the event is online
    */
+  @Override
   public boolean observeOnline() {
     return this.online;
   }
@@ -100,6 +103,7 @@ public final class Event {
    *
    * @return the starting day of the event
    */
+  @Override
   public Day observeStartDayOfEvent() {
     return this.startDay;
   }
@@ -109,6 +113,7 @@ public final class Event {
    *
    * @return the start time of the event
    */
+  @Override
   public int observeStartTimeOfEvent() {
     return this.startTime;
   }
@@ -118,6 +123,7 @@ public final class Event {
    *
    * @return the end day of the event.
    */
+  @Override
   public Day observeEndDayOfEvent() {
     return this.endDay;
   }
@@ -127,6 +133,7 @@ public final class Event {
    *
    * @return the end time of the event.
    */
+  @Override
   public int observeEndTimeOfEvent() {
     return this.endTime;
   }
@@ -136,6 +143,7 @@ public final class Event {
    *
    * @return the invited users of the event
    */
+  @Override
   public List<User> observeInvitedUsers() {
     return this.invitedUsers;
   }
@@ -205,6 +213,7 @@ public final class Event {
    *
    * @return the host of the event.
    */
+  @Override
   public User observeHost() {
     return this.host;
   }

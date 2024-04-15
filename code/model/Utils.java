@@ -37,7 +37,7 @@ public final class Utils {
       scheduleID.setAttribute("id", user.toString());
 
       // Traverses events in the user's schedule.
-      for (Event e : user.observeSchedule()) {
+      for (IEvent e : user.observeSchedule()) {
         writeEvent(schedule, scheduleID, e);
       }
       schedule.appendChild(scheduleID);
@@ -54,7 +54,7 @@ public final class Utils {
    * @param scheduleID an Element
    * @param e          an Event
    */
-  private static void writeEvent(Document schedule, Element scheduleID, Event e) {
+  private static void writeEvent(Document schedule, Element scheduleID, IEvent e) {
     Element event = schedule.createElement("event");
     Element name = schedule.createElement("name");
     name.appendChild(schedule.createTextNode(e.observeName()));
