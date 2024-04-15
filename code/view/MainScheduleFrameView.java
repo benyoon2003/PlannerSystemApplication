@@ -1,20 +1,18 @@
 package view;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Objects;
 
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import controller.IFeatures;
 import model.Event;
 import model.ReadOnlyPlannerModel;
 import model.User;
+import model.Utils;
 
 /**
  * MainScheduleFrameView is a custom JFrame that implements PlannerView.
@@ -38,6 +36,9 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   private JMenuItem add;
 
   private JMenuItem save;
+
+  private IFeatures feature;
+
 
 
   /**
@@ -81,8 +82,22 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     menu.add(save);
     mb.add(menu);
     this.setJMenuBar(mb);
-    add.setActionCommand("Add Menu Bar");
-    save.setActionCommand("Save Menu Bar");
+    this.add.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JFileChooser file = new JFileChooser();
+        file.showSaveDialog(null);
+        feature.uploadSchedule(file.getSelectedFile().getPath());
+      }
+    });
+    this.save.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JFileChooser file = new JFileChooser();
+        file.showSaveDialog(null);
+        feature.saveSchedule(file.getSelectedFile().getPath());
+      }
+    });
   }
 
 
@@ -97,7 +112,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    *
    * @param selected is the user that is currently selected for the view.
    */
-  public void reMakeView(User selected, ActionListener listener) {
+  public void reMakeView(User selected, IFeatures feature) {
     this.getContentPane().removeAll();
     this.mainPanel = new JPanel();
     this.mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -108,7 +123,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.add(mainPanel);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
-    this.setListener(listener);
+    this.addFeatures(feature);
   }
 
   /**
@@ -123,10 +138,14 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
 
   @Override
   public void addFeatures(IFeatures features) {
-    this.planner.addFeatures
-    this.bottom.setListener(listener);
-    this.add.addActionListener(listener);
-    this.save.addActionListener(listener);
+    this.feature = features;
+    this.planner.addFeatures(features);
+    this.bottom.addFeatures(features);
+  }
+
+
+  public void showError(String msg){
+    JOptionPane.showMessageDialog(this, msg);
   }
 
   /**

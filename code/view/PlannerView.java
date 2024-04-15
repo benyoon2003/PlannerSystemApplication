@@ -33,9 +33,16 @@ public interface PlannerView {
    * reflects the changes in the model or a change in host.
    *
    * @param host     the new host being viewed or same host with new view
-   * @param listener the controller needed to be reconnected to the view.
+   * @param feature the controller needed to be reconnected to the view.
    */
-  void reMakeView(User host, ActionListener listener);
+  void reMakeView(User host, IFeatures feature);
+
+  /**
+   * Displays the given error message recieved from the controller.
+   * @param msg the error message
+   */
+  void showError(String msg);
+
 
   /**
    * This method observes which user is selected and therefore the host being viewed.

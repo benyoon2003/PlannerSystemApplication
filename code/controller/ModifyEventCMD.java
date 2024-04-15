@@ -10,7 +10,7 @@ import view.EventView;
  * This is the action command for modifying an event in the model which is called from the
  * controller.
  */
-class ModifyEventCMD implements IFeatures {
+class ModifyEventCMD implements ActionCommand {
   private final PlannerModel model;
   private final EventView eventView;
   private final User host;

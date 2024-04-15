@@ -7,7 +7,7 @@ import view.EventView;
 /**
  * This is the command from the controller creating the event in the model.
  */
-class CreateEventCMD implements IFeatures {
+class CreateEventCMD implements ActionCommand {
 
   private final PlannerModel model;
   private final EventView eventView;

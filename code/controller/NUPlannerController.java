@@ -9,6 +9,7 @@ import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
+import model.Day;
 import model.Event;
 import model.PlannerModel;
 import model.User;
@@ -30,7 +31,7 @@ public class NUPlannerController implements IFeatures {
   private EventView eventView;
   private User host;
   private final SchedulingStrategy strat;
-  private IFeatures cmd;
+  private ActionCommand cmd;
   private Event originalEvent;
 
   /**
@@ -47,7 +48,7 @@ public class NUPlannerController implements IFeatures {
     this.view = Objects.requireNonNull(view);
     // Defaults host to first user in database
     this.host = model.getListOfUser().get(0);
-    this.view.setListener(this);
+    this.view.addFeatures(this);
   }
 
   /**
@@ -68,7 +69,7 @@ public class NUPlannerController implements IFeatures {
     this.view = Objects.requireNonNull(view);
     this.eventView = Objects.requireNonNull(eventView);
     this.host = Objects.requireNonNull(host);
-    this.view.setListener(this);
+    this.view.addFeatures(this);
   }
 
   /**
@@ -192,5 +193,69 @@ public class NUPlannerController implements IFeatures {
     // Javastyle is forcing us to use this member variable in other methods so we threw it in here
     // sorry and thank you!
     this.originalEvent = null;
+  }
+
+  @Override
+  public void createNewEvent(String user, String name,
+                             String location, boolean online, Day startDay,
+                             int startTime, Day endDay, int endTime, List<String> invitedUsers) {
+    try {
+      model.createEvent(user, name, location, online, startDay, startTime, endDay, endTime,
+              invitedUsers);
+    } catch (IllegalArgumentException er){
+      view.showError(er.getMessage());
+    }
+
+  }
+
+  @Override
+  public void modifyEvent(Event originalEvent, String name, String location,
+                          boolean online, Day startDay, int startTime, Day endDay,
+                          int endTime, List<String> invitedUsers, String user) {
+    try {
+      model.modifyEvent(originalEvent, name, location, online, startDay, startTime, endDay, endTime,
+              invitedUsers, user);
+    } catch (IllegalArgumentException er){
+      view.showError(er.getMessage());
+    }
+  }
+
+  @Override
+  public void removeEvent(String user, Event eventToRemove) {
+    try {
+      model.removeEvent(user, eventToRemove);
+    } catch (IllegalArgumentException er){
+      view.showError(er.getMessage());
+    }
+  }
+
+  @Override
+  public void switchUser(String username) {
+    this.host = Utils.findUser(username, this.model.getListOfUser());
+    view.reMakeView(Utils.findUser(username, this.model.getListOfUser()), this);
+  }
+
+  @Override
+  public void uploadSchedule(String path) {
+    try{
+      model.addUser(Utils.readXML(path, model.getListOfUser()));
+      view.reMakeView(host, this);
+    } catch (IllegalArgumentException | NullPointerException er) {
+      view.showError(er.getMessage());
+    }
+  }
+
+  @Override
+  public void saveSchedule(String path) {
+    for (User u : model.getListOfUser()) {
+      Utils.writeToFile(u, path);
+    }
+  }
+
+  @Override
+  public void scheduleEvent(String host, String eventName, boolean isOnline,
+                            String location, List<String> attendees, int duration) {
+    this.strat.chooseTime(this.model, Utils.findUser(host, this.model.getListOfUser()),
+            eventName, isOnline, location, attendees, duration);
   }
 }
