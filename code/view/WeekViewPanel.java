@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import controller.IFeatures;
 import model.Day;
 import model.Event;
+import model.IEvent;
 import model.ReadOnlyPlannerModel;
 import model.User;
 import model.Utils;
@@ -60,7 +61,7 @@ class WeekViewPanel extends JPanel {
     this.bounds = getBounds();
     this.removeAll();
     setSize(this.bounds.width, this.bounds.height);
-    for (Event e : model.selectSchedule(this.selected.toString())) {
+    for (IEvent e : model.selectSchedule(this.selected.toString())) {
       drawEvent(e);
     }
     drawLines(g2d);
@@ -101,7 +102,7 @@ class WeekViewPanel extends JPanel {
    *
    * @param e the given event trying to be displayed.
    */
-  private void drawEvent(Event e) {
+  private void drawEvent(IEvent e) {
     java.util.List<Day> daysOrder = java.util.List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
@@ -130,7 +131,7 @@ class WeekViewPanel extends JPanel {
    * @param e            the event being continued to be drawn.
    * @param lastDayDrawn the previous day of the event drawn.
    */
-  private void drawEndOfEvent(Event e, Day lastDayDrawn) {
+  private void drawEndOfEvent(IEvent e, Day lastDayDrawn) {
     java.util.List<Day> daysOrder = List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
@@ -154,7 +155,5 @@ class WeekViewPanel extends JPanel {
   void addFeature(IFeatures features){
     this.feature = features;
   }
-  
-  public void addFeatures(IFeatures features) {
-  }
+
 }

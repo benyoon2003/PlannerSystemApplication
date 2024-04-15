@@ -239,7 +239,7 @@ public class ScheduleFrame extends JFrame implements EventView {
             features.scheduleEvent(
                     this.host, observeEventNameFromEF(),
                     observeIsOnlineFromEF(), observeLocationFromEF(),
-                    observeAvailUsersFromEF(), observeDurationFromSF()));
+                    observeSelectedUsersFromEF(), observeDurationFromSF()));
   }
 
   @Override
