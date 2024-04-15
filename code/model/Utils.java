@@ -140,7 +140,7 @@ public final class Utils {
       String userName = scheduleNode.getAttributes().getNamedItem("id").getNodeValue();
 
       // Traverses events in the XML file and adds each event to the schedule
-      List<Event> schedule = new ArrayList<>();
+      List<IEvent> schedule = new ArrayList<>();
       if (scheduleNode.getNodeType() == Node.ELEMENT_NODE) {
         NodeList eventNodeList = scheduleNode.getChildNodes();
         for (int i = 0; i < eventNodeList.getLength(); i++) {
