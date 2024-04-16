@@ -143,13 +143,13 @@ class WeekViewPanel extends JPanel {
       this.add(new EventRedPanel(e,
               daysOrder.indexOf(e.observeEndDayOfEvent()) * verticalLineOffset, 0,
               verticalLineOffset, end,
-              horizontalLineOffset, Utils.convertToStringArray(e.observeInvitedUsers()),
+              horizontalLineOffset, Utils.convertToStringArray(model.getListOfUser()),
               this.selectedUsername, this.feature));
     } else {
       this.add(new EventRedPanel(e,
               (daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
               verticalLineOffset, this.bounds.height,
-              horizontalLineOffset, Utils.convertToStringArray(e.observeInvitedUsers()),
+              horizontalLineOffset, Utils.convertToStringArray(model.getListOfUser()),
               this.selectedUsername, this.feature));
       drawEndOfEvent(e, daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1));
     }
