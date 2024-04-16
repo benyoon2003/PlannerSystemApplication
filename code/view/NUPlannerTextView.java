@@ -18,7 +18,6 @@ public class NUPlannerTextView implements PlannerView {
 
   private final ReadOnlyPlannerModel model;
   private String host;
-  private ActionListener listener;
 
   /**
    * Constructs a textual view version.
@@ -83,13 +82,13 @@ public class NUPlannerTextView implements PlannerView {
   }
 
   @Override
-  public void render(IEvent event, String cmd) {
+  public void render(IEvent event) {
     System.out.println(displayUserSchedule());
   }
 
   @Override
   public void addFeatures(IFeatures features) {
-
+    // Unimplemented
   }
 
   @Override
@@ -100,11 +99,6 @@ public class NUPlannerTextView implements PlannerView {
 
   @Override
   public void showError(String msg) {
-
-  }
-
-  @Override
-  public String observeUserSelectionBox() {
-    return this.host;
+    // Unimplemented
   }
 }

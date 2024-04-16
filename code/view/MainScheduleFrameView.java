@@ -137,7 +137,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    * here as the JFrame automatically renders itself and displays itself.
    */
   @Override
-  public void render(IEvent event, String cmd) {
+  public void render(IEvent event) {
     // Unimplemented
   }
 
