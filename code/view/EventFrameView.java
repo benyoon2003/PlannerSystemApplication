@@ -232,14 +232,16 @@ public class EventFrameView extends JFrame implements EventView {
     JLabel availUserLabel = new JLabel("Available users");
     JPanel availUserPanel = new JPanel(); // Panel for available users
     availUserPanel.setLayout(new BoxLayout(availUserPanel, BoxLayout.Y_AXIS));
-    int indexOfHost = -1;
-    for (int indexAvail = 0; indexAvail < availUsers.length; indexAvail++) {
-      if (this.originalEvent.observeHost().toString().equals(availUsers[indexAvail])) {
-        indexOfHost = indexAvail;
+    if (prevSelected.length != 0) {
+      int indexOfHost = -1;
+      for (int indexAvail = 0; indexAvail < availUsers.length; indexAvail++) {
+        if (this.originalEvent.observeHost().toString().equals(availUsers[indexAvail])) {
+          indexOfHost = indexAvail;
+        }
       }
+      availUsers[indexOfHost] = availUsers[0];
+      availUsers[0] = this.originalEvent.observeHost().toString();
     }
-    availUsers[indexOfHost] = availUsers[0];
-    availUsers[0] = this.originalEvent.observeHost().toString();
     this.availUser = new JList<>(availUsers);
     this.availUser.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     int[] selectionIndices = new int[prevSelected.length];
@@ -366,8 +368,7 @@ public class EventFrameView extends JFrame implements EventView {
 
   @Override
   public List<String> observeSelectedUsersFromEF() {
-    List<String> selectedUsers = this.availUser.getSelectedValuesList();
-    return selectedUsers;
+    return this.availUser.getSelectedValuesList();
   }
 
   @Override

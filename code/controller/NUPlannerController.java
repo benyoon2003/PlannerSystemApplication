@@ -91,6 +91,9 @@ public class NUPlannerController implements IFeatures {
   public void removeEvent(String user, IEvent eventToRemove) {
     try {
       model.removeEvent(user, eventToRemove);
+      for (User t: eventToRemove.observeInvitedUsers()) {
+        System.out.println(t.toString());
+      }
       view.reMakeView(this.host.toString(), this);
     } catch (IllegalArgumentException er){
       view.showError(er.getMessage());
