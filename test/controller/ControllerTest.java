@@ -88,7 +88,7 @@ public class ControllerTest {
   private void exampleSchedulingControllerWorkday() {
     exampleSchedulingControllerAnytime();
     nico = this.model.addUser("Nico");
-    this.controller = new NUPlannerController(this.model, new WorkdayStrat(), this.view,
+    this.controller = new NUPlannerController(this.model, new WorkHoursStrat(), this.view,
             this.ev, ben);
   }
 
@@ -97,7 +97,7 @@ public class ControllerTest {
    */
   private void exampleSchedulingControllerLenient() {
     exampleSchedulingControllerAnytime();
-    this.controller = new NUPlannerController(this.model, new WorkdayStrat(), this.view,
+    this.controller = new NUPlannerController(this.model, new WorkHoursStrat(), this.view,
             this.ev, ben);
 
     this.model.addUser("Nico");
