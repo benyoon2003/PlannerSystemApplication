@@ -15,6 +15,10 @@ import model.Day;
  */
 public interface EventView {
 
+  /**
+   * This method adds the feature throughout the view. And allows the features to receive
+   * the requests.
+   */
   void addFeatures(IFeatures features);
 
   /**

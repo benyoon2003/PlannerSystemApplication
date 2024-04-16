@@ -5,7 +5,7 @@ import controller.AnyTimeStrat;
 import controller.LenientStrat;
 import controller.NUPlannerController;
 import controller.SchedulingStrategy;
-import controller.WorkdayStrat;
+import controller.WorkHoursStrat;
 import model.Day;
 import model.NuPlanner;
 import view.MainScheduleFrameView;
@@ -31,7 +31,7 @@ public final class PlannerRunner {
           strat = new AnyTimeStrat();
           break;
         case "workhours":
-          strat = new WorkdayStrat();
+          strat = new WorkHoursStrat();
           break;
         case "lenient":
           strat = new LenientStrat();
@@ -39,6 +39,8 @@ public final class PlannerRunner {
         default:
           throw new IllegalArgumentException("Unknown Scheduling Strategy");
       }
+    }else {
+      throw new IllegalArgumentException("Strategy Required");
     }
     testModel.addUser("Ben");
     testModel.addUser("Nico");

@@ -1,8 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import model.Event;
 import model.IEvent;
 import model.PlannerModel;
 import model.User;
@@ -16,18 +16,17 @@ public class LenientStrat implements SchedulingStrategy {
   public IEvent chooseTime(PlannerModel model, User host, String name,
                                  boolean isOnline, String location,
                                  List<String> attendees, int duration) {
-    for (String attendee : attendees) {
+    List<String> invitees = new ArrayList<>(attendees);
+    if(invitees.isEmpty()){
+      return new WorkHoursStrat().chooseTime(model, host, name,
+              isOnline, location, attendees, duration);
+    }
+    while (!invitees.isEmpty()) {
       try {
-        attendees.remove(attendee);
-        if (attendees.isEmpty()) {
-          break;
-        }
-        IEvent e = new WorkdayStrat().chooseTime(model, host, name,
+        attendees.remove(invitees);
+        return new WorkHoursStrat().chooseTime(model, host, name,
                 isOnline, location, attendees, duration);
-        return e;
-      } catch (IllegalArgumentException ignored) {
-
-      }
+      } catch (IllegalArgumentException ignored) {}
     }
     throw new IllegalArgumentException("Given Duration cannot fit in schedule");
   }

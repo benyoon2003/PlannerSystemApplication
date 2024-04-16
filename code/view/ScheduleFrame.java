@@ -233,6 +233,7 @@ public class ScheduleFrame extends JFrame implements EventView {
                 host, observeEventNameFromEF(),
                 observeIsOnlineFromEF(), observeLocationFromEF(),
                 observeSelectedUsersFromEF(), observeDurationFromSF());
+        this.close();
       } else {
         JOptionPane.showMessageDialog(this,
                 "Enter all of the information first.\n");

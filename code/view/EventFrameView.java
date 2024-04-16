@@ -295,12 +295,18 @@ public class EventFrameView extends JFrame implements EventView {
     this.setVisible(true);
   }
 
+  /**
+   * Closes the frame.
+   */
   @Override
   public void close() {
     this.setVisible(false);
     this.dispose();
   }
 
+  /**
+   * Prints the details to make sure the event was created correctly.
+   */
   @Override
   public void outputEventDetails() {
     System.out.print("Event name: ");
