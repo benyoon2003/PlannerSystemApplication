@@ -63,7 +63,10 @@ public class EventFrameView extends JFrame implements EventView {
    * @param selectedUsername       a username as a String
    */
   public EventFrameView(String[] availUsers, String selectedUsername) {
+    this.selectedUsername = selectedUsername;
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.eventPanel = new JPanel();
+    this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.Y_AXIS));
     makeNamePanel("");
     makeLocationPanel(false, "");
     makeStartDayPanel(Day.Sunday);
@@ -72,7 +75,10 @@ public class EventFrameView extends JFrame implements EventView {
     makeEndTimePanel("");
     makeAvailUserPanel(availUsers, new String[]{});
     makeButtonPanel();
-    this.selectedUsername = selectedUsername;
+
+    this.add(this.eventPanel);
+    this.pack();
+
   }
 
   /**
@@ -94,7 +100,7 @@ public class EventFrameView extends JFrame implements EventView {
     makeStartTimePanel(Integer.toString(this.originalEvent.observeStartTimeOfEvent()));
     makeEndDayPanel(this.originalEvent.observeEndDayOfEvent());
     makeEndTimePanel(Integer.toString(this.originalEvent.observeEndTimeOfEvent()));
-    makeAvailUserPanel(availUsers, Utils.convertToStringArray(originalEvent.observeInvitedUsers()));
+    makeAvailUserPanel(availUsers, Utils.convertToStringArray(this.originalEvent.observeInvitedUsers()));
     makeButtonPanel();
 
     this.add(this.eventPanel);
@@ -237,12 +243,12 @@ public class EventFrameView extends JFrame implements EventView {
     availUserPanel.setLayout(new BoxLayout(availUserPanel, BoxLayout.Y_AXIS));
     int indexOfHost = -1;
     for (int indexAvail = 0; indexAvail < availUsers.length; indexAvail++) {
-      if (selectedUsername.equals(availUsers[indexAvail])) {
+      if (this.originalEvent.observeHost().toString().equals(availUsers[indexAvail])) {
         indexOfHost = indexAvail;
       }
     }
     availUsers[indexOfHost] = availUsers[0];
-    availUsers[0] = selectedUsername;
+    availUsers[0] = this.originalEvent.observeHost().toString();
     this.availUser = new JList<>(availUsers);
     this.availUser.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     int[] selectionIndices = new int[prevSelected.length];
