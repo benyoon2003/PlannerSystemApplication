@@ -18,6 +18,7 @@ public interface EventView {
   /**
    * This method adds the feature throughout the view. And allows the features to receive
    * the requests.
+   * @param features IFeatures
    */
   void addFeatures(IFeatures features);
 
@@ -102,13 +103,6 @@ public interface EventView {
    * @return String array of usernames
    */
   List<String> observeSelectedUsersFromEF();
-
-  /**
-   * Observes the host of the event in the Event Frame.
-   *
-   * @return String of the host username
-   */
-  String observeHostFromEF();
 
   /**
    * Observes the duration of the event in the Schedule Frame.

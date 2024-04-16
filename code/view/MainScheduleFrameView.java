@@ -111,10 +111,8 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    * update the entire frame but a client shouldn't be able to remake the
    * view outside the view.</p>
    *
-<<<<<<< HEAD
-=======
    * @param selectedUsername is the user that is currently selected for the view.
->>>>>>> e4cb6623f6fccc84f069eece716fa82de92c8d20
+   * @param feature the controller needed to be reconnected to the view.
    */
   public void reMakeView(String selectedUsername, IFeatures feature) {
     this.getContentPane().removeAll();
@@ -135,6 +133,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    * This method is a method that this class inherits from the interface as
    * it's purpose it to render/display the view but this method is not needed
    * here as the JFrame automatically renders itself and displays itself.
+   * @param event an IEvent
    */
   @Override
   public void render(IEvent event) {
@@ -148,18 +147,13 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.bottom.addFeature(features);
   }
 
-
+  /**
+   * Displays the error message in a JOptionPane.
+   * @param msg the error message
+   */
   public void showError(String msg){
     JOptionPane.showMessageDialog(this, msg);
   }
 
-  /**
-   * Observes the JComboBox to see if the user was switched.
-   *
-   * @return a User
-   */
-  public String observeUserSelectionBox() {
-    return this.bottom.observeUserSelectionBox();
-  }
 
 }

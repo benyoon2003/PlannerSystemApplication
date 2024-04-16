@@ -48,6 +48,7 @@ public class ScheduleFrame extends JFrame implements EventView {
    * @param location   the location of the event
    * @param duration   how long the event is supposed to be
    * @param availUsers the available users
+   * @param selectedUser the selected user
    */
   public ScheduleFrame(String eventName, boolean isOnline, String location,
                        String duration, String[] availUsers, String selectedUser) {
@@ -148,8 +149,10 @@ public class ScheduleFrame extends JFrame implements EventView {
     this.eventPanel.add(buttonPanel);
   }
 
+
   /**
    * Makes the jText area where the user can input the possible duration of the event.
+   * @param duration a String of duration
    */
   private void makeDurationPanel(String duration) {
     JPanel endingTimePanel = new JPanel();
@@ -212,10 +215,6 @@ public class ScheduleFrame extends JFrame implements EventView {
     return this.availUser.getSelectedValuesList();
   }
 
-  @Override
-  public String observeHostFromEF() {
-    return this.host;
-  }
 
   @Override
   public int observeDurationFromSF() {

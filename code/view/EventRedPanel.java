@@ -56,6 +56,7 @@ class EventRedPanel extends JPanel implements MouseListener {
    * @param width    the width as int
    * @param height   the height as int
    * @param horiz    the horizontal offset as int
+   * @param horiz    the available users
    */
 
   EventRedPanel(IEvent e, int x, int y, int width, int height, int horiz, String[] availUsers,

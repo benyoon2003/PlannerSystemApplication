@@ -75,8 +75,9 @@ public class EventFrameView extends JFrame implements EventView {
   /**
    * Constructs a EventFrameView using the pre-existing details of the event allowing
    * for the user to choose to modify parts of an existing event.
-   *
-   * @param availUsers   String array
+   * @param originalEvent an IEvent
+   * @param availUsers the available users String array
+   * @param selectedUsername the selected username
    */
   public EventFrameView(IEvent originalEvent, String[] availUsers, String selectedUsername) {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -375,11 +376,6 @@ public class EventFrameView extends JFrame implements EventView {
   @Override
   public List<String> observeSelectedUsersFromEF() {
     return this.availUser.getSelectedValuesList();
-  }
-
-  @Override
-  public String observeHostFromEF() {
-    return this.selectedUsername;
   }
 
   @Override
