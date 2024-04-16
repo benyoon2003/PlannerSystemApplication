@@ -19,7 +19,7 @@ public interface PlannerView {
    *
    * @throws IOException if render fails for some reason
    */
-  void render(IEvent event, String cmd);
+  void render(IEvent event);
 
   /**
    * This sets the listener for the view which then connects the entire view to the controller..
@@ -44,11 +44,4 @@ public interface PlannerView {
    */
   void showError(String msg);
 
-
-  /**
-   * This method observes which user is selected and therefore the host being viewed.
-   *
-   * @return the user selected.
-   */
-  String observeUserSelectionBox();
 }

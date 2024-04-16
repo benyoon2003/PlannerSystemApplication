@@ -28,7 +28,7 @@ public class NuPlannerTest {
   private User spongebob;
   private User squidward;
 
-  private Event e1;
+  private IEvent e1;
 
   private void exampleNuPlanner() {
     this.example = new NuPlanner(new ArrayList<User>());
@@ -44,11 +44,11 @@ public class NuPlannerTest {
     patrick = this.example2.addUser("Patrick");
     spongebob = this.example2.addUser("Spongebob");
     squidward = this.example2.addUser("Squidward");
-    Event e2 = this.example2.createEvent("Lucia", "grading exams", "home", true,
+    IEvent e2 = this.example2.createEvent("Lucia", "grading exams", "home", true,
             Day.Monday, 0, Day.Monday, 1, List.of("Squidward"));
-    Event e3 = this.example2.createEvent("Patrick", "eating", "Krusty Krab", false,
+    IEvent e3 = this.example2.createEvent("Patrick", "eating", "Krusty Krab", false,
             Day.Tuesday, 500, Day.Thursday, 10, List.of("Squidward", "Spongebob"));
-    Event e4 = this.example2.createEvent("Spongebob", "flipping patties", "Krusty Krab",
+    IEvent e4 = this.example2.createEvent("Spongebob", "flipping patties", "Krusty Krab",
             false, Day.Friday, 600, Day.Saturday, 700, List.of("Patrick"));
   }
 
@@ -101,7 +101,7 @@ public class NuPlannerTest {
   @Test
   public void testCreateEvent() {
     exampleNuPlanner();
-    Event e2 = this.example.createEvent("Ben", "OOD", "Snell", true
+    IEvent e2 = this.example.createEvent("Ben", "OOD", "Snell", true
             , Day.Friday, 1800, Day.Saturday, 1800, List.of("Nico"));
     assertTrue(ben.observeSchedule().contains(e2));
   }
@@ -116,7 +116,7 @@ public class NuPlannerTest {
   @Test
   public void testEventCreatedButConflictsWithOtherUser() {
     exampleNuPlanner2();
-    Event e5 = this.example2.createEvent("Lucia", "OOD", "Snell", true
+    IEvent e5 = this.example2.createEvent("Lucia", "OOD", "Snell", true
             , Day.Wednesday, 1800, Day.Wednesday, 2000, List.of("Patrick"));
     assertFalse(this.patrick.observeSchedule().contains(e5));
     //makes sure that the event is not removed from the host's schedule.
