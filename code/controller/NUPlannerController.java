@@ -123,8 +123,12 @@ public class NUPlannerController implements IFeatures {
   @Override
   public void scheduleEvent(String host, String eventName, boolean isOnline,
                             String location, List<String> attendees, int duration) {
-    this.strat.chooseTime(this.model, Utils.findUser(host, this.model.getListOfUser()),
-            eventName, isOnline, location, attendees, duration);
-    view.reMakeView(this.host.toString(), this);
+    try {
+      this.strat.chooseTime(this.model, Utils.findUser(host, this.model.getListOfUser()),
+              eventName, isOnline, location, attendees, duration);
+      view.reMakeView(this.host.toString(), this);
+    } catch (IllegalArgumentException er){
+      view.showError(er.getMessage());
+    }
   }
 }

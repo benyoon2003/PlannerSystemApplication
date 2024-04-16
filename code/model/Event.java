@@ -64,7 +64,6 @@ public final class Event implements IEvent {
     this.invitedUsers = Objects.requireNonNull(invitedUsers);
     if (!this.invitedUsers.isEmpty()) {
       this.host = this.invitedUsers.get(0);
-      System.out.println(this.host.toString());
     }
   }
 

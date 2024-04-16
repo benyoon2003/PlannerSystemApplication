@@ -3,21 +3,14 @@ package view;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.BoxLayout;
+import javax.swing.*;
+
 import java.awt.BorderLayout;
 
 import controller.IFeatures;
 import model.Day;
 
-import javax.swing.JPanel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JList;
-import javax.swing.JLabel;
 import java.awt.FlowLayout;
-import javax.swing.ListSelectionModel;
 
 /**
  * A ScheduleFrame is an EventView that allows the user to use a strategy
@@ -41,9 +34,9 @@ public class ScheduleFrame extends JFrame implements EventView {
    *
    * @param availUsers the list of users available for selection
    */
-  public ScheduleFrame(String[] availUsers) {
+  public ScheduleFrame(String[] availUsers, String selectedUser) {
     this("",
-            true, "", "", availUsers);
+            true, "", "", availUsers, selectedUser);
   }
 
   /**
@@ -57,12 +50,11 @@ public class ScheduleFrame extends JFrame implements EventView {
    * @param availUsers the available users
    */
   public ScheduleFrame(String eventName, boolean isOnline, String location,
-                       String duration, String[] availUsers) {
+                       String duration, String[] availUsers, String selectedUser) {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    this.host = availUsers[0];
     this.eventPanel = new JPanel();
     this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.Y_AXIS));
-
+    this.host = selectedUser;
     makeNamePanel(eventName);
     makeLocationPanel(isOnline, location);
     makeDurationPanel(duration);
@@ -235,11 +227,17 @@ public class ScheduleFrame extends JFrame implements EventView {
 
   @Override
   public void addFeatures(IFeatures features) {
-    scheduleButton.addActionListener(evt ->
-            features.scheduleEvent(
-                    this.host, observeEventNameFromEF(),
-                    observeIsOnlineFromEF(), observeLocationFromEF(),
-                    observeSelectedUsersFromEF(), observeDurationFromSF()));
+    scheduleButton.addActionListener(evt -> {
+      if (this.validInput()) {
+        features.scheduleEvent(
+                host, observeEventNameFromEF(),
+                observeIsOnlineFromEF(), observeLocationFromEF(),
+                observeSelectedUsersFromEF(), observeDurationFromSF());
+      } else {
+        JOptionPane.showMessageDialog(this,
+                "Enter all of the information first.\n");
+      }
+    });
   }
 
   @Override

@@ -424,4 +424,5 @@ public class EventFrameView extends JFrame implements EventView {
         JOptionPane.showMessageDialog(this,
                 "Enter all of the information first.\n");
       }});}
+
 }

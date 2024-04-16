@@ -50,7 +50,7 @@ class MainBottomPanel extends JPanel {
    * which takes in the following as parameters.
    *
    * @param model a ReadOnlyPlannerModel
-   * @param host  a User to represent the host
+   * @param selectedUsername is the user that is currently selected
    */
   MainBottomPanel(ReadOnlyPlannerModel model, String selectedUsername) {
     this.model = Objects.requireNonNull(model);
@@ -102,8 +102,12 @@ class MainBottomPanel extends JPanel {
     scheduleEvent.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        List<User> notHost = new ArrayList<>(model.getListOfUser());
+        notHost.remove(
+                Utils.findUser(selectedUsername, model.getListOfUser()));
         EventView scheduleFrame =
-                new ScheduleFrame(Utils.convertToStringArray(model.getListOfUser()));
+                new ScheduleFrame(Utils.convertToStringArray(notHost),
+                        selectedUsername);
         scheduleFrame.addFeatures(features);
         scheduleFrame.display();
       }
@@ -129,7 +133,7 @@ class MainBottomPanel extends JPanel {
   void addFeature(IFeatures features) {
     this.features = features;
     selectedUserBox.addActionListener(evt ->
-            features.switchUser(observeUserSelectionBox().toString()));
+            features.switchUser(observeUserSelectionBox()));
   }
 
 }
