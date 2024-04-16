@@ -74,24 +74,10 @@ class MainBottomPanel extends JPanel {
     this.selectedUser.setSelectedItem(this.selectedUser);
     this.add(selectedUser);
     this.selectedUser.setActionCommand("Select User Box");
+    this.selectedUser.addActionListener(evt ->
+            this.features.switchUser(this.selectedUsername));
   }
 
-  /**
-   * This method converts a given list of users to an array of users
-   * to use in the JComboBox and select users. This is used in the
-   * mouse clicked method which opens the event dialogue box with the
-   * list of users in the event.
-   *
-   * @param users the list of users in the event
-   * @return a mirroring array of users
-   */
-  private User[] convertToUserArray(List<User> users) {
-    User[] usernames = new User[users.size()];
-    for (int index = 0; index < users.size(); index++) {
-      usernames[index] = users.get(index);
-    }
-    return usernames;
-  }
 
   /**
    * This method creates the "Create Event" Button and the "Schedule Event" button

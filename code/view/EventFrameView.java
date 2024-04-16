@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
+import java.util.Objects;
+
 import javax.swing.ListSelectionModel;
 
 import controller.IFeatures;
