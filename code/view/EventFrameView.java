@@ -1,20 +1,11 @@
 package view;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.util.List;
 
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import java.util.Objects;
+import javax.swing.*;
 
-import javax.swing.ListSelectionModel;
+import java.util.Objects;
 
 import controller.IFeatures;
 import model.Day;
@@ -391,29 +382,46 @@ public class EventFrameView extends JFrame implements EventView {
 
   @Override
   public void addFeatures(IFeatures features) {
-    createButton.addActionListener(evt ->
-            features.createNewEvent(this.selectedUsername,
-            this.observeEventNameFromEF(),
-            this.observeLocationFromEF(),
-            this.observeIsOnlineFromEF(),
-            this.observeStartDayFromEF(),
-            this.observeStartTimeFromEF(),
-            this.observeEndDayFromEF(),
-            this.observeEndTimeFromEF(),
-            this.observeSelectedUsersFromEF()));
-    modifyButton.addActionListener(evt ->
-            features.modifyEvent(this.originalEvent,
-            this.observeEventNameFromEF(),
-            this.observeLocationFromEF(),
-            this.observeIsOnlineFromEF(),
-            this.observeStartDayFromEF(),
-            this.observeStartTimeFromEF(),
-            this.observeEndDayFromEF(),
-            this.observeEndTimeFromEF(),
-            this.observeSelectedUsersFromEF(),
-            this.selectedUsername));
-    removeButton.addActionListener(evt ->
-            features.removeEvent(selectedUsername, this.originalEvent));
-  }
-
+    createButton.addActionListener(evt -> {
+      if (this.validInput()){
+        features.createNewEvent(this.selectedUsername,
+                this.observeEventNameFromEF(),
+                this.observeLocationFromEF(),
+                this.observeIsOnlineFromEF(),
+                this.observeStartDayFromEF(),
+                this.observeStartTimeFromEF(),
+                this.observeEndDayFromEF(),
+                this.observeEndTimeFromEF(),
+                this.observeSelectedUsersFromEF());
+        this.close();
+      }else {
+        JOptionPane.showMessageDialog(this,
+                "Enter all of the information first.\n");
+      }
+              });
+    modifyButton.addActionListener(evt -> {
+      if (this.validInput()){
+        features.modifyEvent(this.originalEvent,
+                this.observeEventNameFromEF(),
+                this.observeLocationFromEF(),
+                this.observeIsOnlineFromEF(),
+                this.observeStartDayFromEF(),
+                this.observeStartTimeFromEF(),
+                this.observeEndDayFromEF(),
+                this.observeEndTimeFromEF(),
+                this.observeSelectedUsersFromEF(),
+                this.selectedUsername);
+        this.close();
+      }else {
+        JOptionPane.showMessageDialog(this,
+                "Enter all of the information first.\n");
+      }});
+    removeButton.addActionListener(evt -> {
+      if (this.validInput()){
+        features.removeEvent(selectedUsername, this.originalEvent);
+        this.close();
+      }else {
+        JOptionPane.showMessageDialog(this,
+                "Enter all of the information first.\n");
+      }});}
 }
