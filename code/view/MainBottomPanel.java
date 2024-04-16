@@ -92,8 +92,8 @@ class MainBottomPanel extends JPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
         List<User> userList = new ArrayList<>(model.getListOfUser());
-        userList.remove(selectedUsername);
-        EventView newEvent = new EventFrameView(Utils.convertToStringArray(model.getListOfUser()),
+        userList.remove(Utils.findUser(selectedUsername, model.getListOfUser()));
+        EventView newEvent = new EventFrameView(Utils.convertToStringArray(userList),
                 selectedUsername);
         newEvent.addFeatures(features);
         newEvent.display();
