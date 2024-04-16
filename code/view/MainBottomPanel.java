@@ -37,7 +37,7 @@ class MainBottomPanel extends JPanel {
 
   private final String selectedUsername;
 
-  private JComboBox<String> selectedUser;
+  private JComboBox<String> selectedUserBox;
 
   private JButton createEvent;
   private JButton scheduleEvent;
@@ -70,10 +70,10 @@ class MainBottomPanel extends JPanel {
    * the selected user.
    */
   private void makeSelectUserBox() {
-    this.selectedUser = new JComboBox<>(Utils.convertToStringArray(model.getListOfUser()));
-    this.selectedUser.setSelectedItem(this.selectedUsername);
-    this.add(selectedUser);
-    this.selectedUser.setActionCommand("Select User Box");
+    this.selectedUserBox = new JComboBox<>(Utils.convertToStringArray(model.getListOfUser()));
+    this.selectedUserBox.setSelectedItem(this.selectedUsername);
+    this.add(selectedUserBox);
+    this.selectedUserBox.setActionCommand("Select User Box");
   }
 
   /**
@@ -108,9 +108,9 @@ class MainBottomPanel extends JPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
         List<User> userList = new ArrayList<>(model.getListOfUser());
-        userList.remove(selectedUser);
+        userList.remove(selectedUsername);
         EventView newEvent = new EventFrameView(Utils.convertToStringArray(model.getListOfUser()),
-                selectedUser.toString());
+                selectedUsername);
         newEvent.addFeatures(features);
         newEvent.display();
       }
@@ -134,7 +134,7 @@ class MainBottomPanel extends JPanel {
    * @return a User
    */
   String observeUserSelectionBox() {
-    return (String) this.selectedUser.getSelectedItem();
+    return (String) this.selectedUserBox.getSelectedItem();
   }
 
   /**
@@ -144,7 +144,7 @@ class MainBottomPanel extends JPanel {
    */
   void addFeature(IFeatures features) {
     this.features = features;
-    selectedUser.addActionListener(evt ->
+    selectedUserBox.addActionListener(evt ->
             features.switchUser(observeUserSelectionBox().toString()));
   }
 
