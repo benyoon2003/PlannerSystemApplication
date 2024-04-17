@@ -16,6 +16,7 @@ import controller.IFeatures;
 import model.Day;
 import model.Event;
 import model.IEvent;
+import model.IUser;
 import model.ReadOnlyPlannerModel;
 import model.User;
 import model.Utils;
@@ -118,9 +119,26 @@ class WeekViewPanel extends JPanel {
     this.add(new EventRedPanel(e,
             daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
             verticalLineOffset, end - start,
-            horizontalLineOffset, Utils.convertToStringArray(model.getListOfUser()),
+            horizontalLineOffset, convertToStringArray(model.getListOfUser()),
             this.selectedUsername, this.feature));
 
+  }
+
+  /**
+   * This method converts a given list of users to an array of users
+   * to use in the JComboBox and select users. This is used in the
+   * mouse clicked method which opens the event dialogue box with the
+   * list of users in the event.
+   *
+   * @param users the list of users in the event
+   * @return a mirroring array of users
+   */
+  private static String[] convertToStringArray(List<IUser> users) {
+    String[] usernames = new String[users.size()];
+    for (int index = 0; index < users.size(); index++) {
+      usernames[index] = users.get(index).toString();
+    }
+    return usernames;
   }
 
   /**
@@ -143,13 +161,13 @@ class WeekViewPanel extends JPanel {
       this.add(new EventRedPanel(e,
               daysOrder.indexOf(e.observeEndDayOfEvent()) * verticalLineOffset, 0,
               verticalLineOffset, end,
-              horizontalLineOffset, Utils.convertToStringArray(model.getListOfUser()),
+              horizontalLineOffset, convertToStringArray(model.getListOfUser()),
               this.selectedUsername, this.feature));
     } else {
       this.add(new EventRedPanel(e,
               (daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
               verticalLineOffset, this.bounds.height,
-              horizontalLineOffset, Utils.convertToStringArray(model.getListOfUser()),
+              horizontalLineOffset, convertToStringArray(model.getListOfUser()),
               this.selectedUsername, this.feature));
       drawEndOfEvent(e, daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1));
     }

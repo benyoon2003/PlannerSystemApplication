@@ -36,6 +36,6 @@ public interface ReadOnlyPlannerModel {
    *
    * @return returns a list of users.
    */
-  public List<User> getListOfUser();
+  public List<IUser> getListOfUser();
 
 }

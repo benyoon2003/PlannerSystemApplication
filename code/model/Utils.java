@@ -29,7 +29,7 @@ public final class Utils {
    *
    * @param user a User
    */
-  public static void writeToFile(User user, String path) {
+  public static void writeToFile(IUser user, String path) {
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document schedule = builder.newDocument();
@@ -88,7 +88,7 @@ public final class Utils {
 
     // Structures users section of event
     Element users = schedule.createElement("users");
-    for (User u : e.observeInvitedUsers()) {
+    for (IUser u : e.observeInvitedUsers()) {
       Element uid = schedule.createElement("uid");
       uid.appendChild(schedule.createTextNode(u.toString()));
       users.appendChild(uid);
@@ -130,7 +130,7 @@ public final class Utils {
    * @param database a List of User
    * @return a User
    */
-  public static User readXML(String path, List<User> database) {
+  public static User readXML(String path, List<IUser> database) {
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document xmlDoc = builder.parse(new File(path));
@@ -146,7 +146,7 @@ public final class Utils {
         for (int i = 0; i < eventNodeList.getLength(); i++) {
           Node eventNode = eventNodeList.item(i);
           if (eventNode.getNodeType() == Node.ELEMENT_NODE) {
-            Event event = createEvent((Element) eventNode, database);
+            IEvent event = createEvent((Element) eventNode, database);
             schedule.add(event);
           }
         }
@@ -165,7 +165,7 @@ public final class Utils {
    * @param database     a List of User
    * @return an Event
    */
-  private static Event createEvent(Element eventElement, List<User> database) {
+  private static Event createEvent(Element eventElement, List<IUser> database) {
     // Gets event name
     String eventName = getTextContent(eventElement, Tag.name);
 
@@ -183,11 +183,11 @@ public final class Utils {
 
     // Gets the list of invitees from the users section of the Event element
     NodeList usersNodeList = eventElement.getElementsByTagName("uid");
-    List<User> invitees = new ArrayList<>();
+    List<IUser> invitees = new ArrayList<>();
     for (int i = 0; i < usersNodeList.getLength(); i++) {
       String userName = usersNodeList.item(i).getTextContent();
       try {
-        User user = findUser(userName, database);
+        IUser user = findUser(userName, database);
         invitees.add(user);
       } catch (IllegalArgumentException ignored) {
         // The uploaded XML file belongs to a user that does not yet exist in the database
@@ -201,6 +201,7 @@ public final class Utils {
     return new Event(eventName, place, online, Day.valueOf(startDay),
             startTime, Day.valueOf(endDay), endTime, invitees);
   }
+
 
   /**
    * Gets the text content of the element of the XML file with the given tag.
@@ -220,8 +221,8 @@ public final class Utils {
    * @param database a List of User
    * @return a User
    */
-  public static User findUser(String userName, List<User> database) {
-    for (User user : database) {
+  public static IUser findUser(String userName, List<IUser> database) {
+    for (IUser user : database) {
       if (user.toString().equals(userName)) {
         return user;
       }
@@ -238,7 +239,7 @@ public final class Utils {
    * @param users the list of users in the event
    * @return a mirroring array of users
    */
-  public static String[] convertToStringArray(List<User> users) {
+  public static String[] convertToStringArray(List<IUser> users) {
     String[] usernames = new String[users.size()];
     for (int index = 0; index < users.size(); index++) {
       usernames[index] = users.get(index).toString();

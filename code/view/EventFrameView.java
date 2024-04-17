@@ -10,6 +10,7 @@ import java.util.Objects;
 import controller.IFeatures;
 import model.Day;
 import model.IEvent;
+import model.IUser;
 import model.Utils;
 
 /**
@@ -92,12 +93,29 @@ public class EventFrameView extends JFrame implements EventView {
     makeStartTimePanel(Integer.toString(this.originalEvent.observeStartTimeOfEvent()));
     makeEndDayPanel(this.originalEvent.observeEndDayOfEvent());
     makeEndTimePanel(Integer.toString(this.originalEvent.observeEndTimeOfEvent()));
-    makeAvailUserPanel(availUsers, Utils.convertToStringArray(this.originalEvent.observeInvitedUsers()));
+    makeAvailUserPanel(availUsers, convertToStringArray(this.originalEvent.observeInvitedUsers()));
     makeButtonPanel();
 
     this.add(this.eventPanel);
     this.pack();
 
+  }
+
+  /**
+   * This method converts a given list of users to an array of users
+   * to use in the JComboBox and select users. This is used in the
+   * mouse clicked method which opens the event dialogue box with the
+   * list of users in the event.
+   *
+   * @param users the list of users in the event
+   * @return a mirroring array of users
+   */
+  private static String[] convertToStringArray(List<IUser> users) {
+    String[] usernames = new String[users.size()];
+    for (int index = 0; index < users.size(); index++) {
+      usernames[index] = users.get(index).toString();
+    }
+    return usernames;
   }
 
   /**

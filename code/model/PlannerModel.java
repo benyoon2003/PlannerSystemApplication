@@ -91,7 +91,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    * @param name a String
    * @return a User
    */
-  User addUser(String name);
+  IUser addUser(String name);
 
   /**
    * Adds a User to the database of users and checks if the user already exists in the database.
@@ -102,7 +102,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    *
    * @param user a User
    */
-  void addUser(User user);
+  void addUser(IUser user);
 
   /**
    * Finds and returns a list of events for a specified user on a given day.
@@ -118,7 +118,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel {
    *
    * @return a list of User
    */
-  List<User> getListOfUser();
+  List<IUser> getListOfUser();
 
   /**
    * Allows for the client to query the main event schedule.

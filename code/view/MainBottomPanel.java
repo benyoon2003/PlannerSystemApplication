@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import controller.IFeatures;
+import model.IUser;
 import model.ReadOnlyPlannerModel;
 import model.User;
 import model.Utils;
@@ -70,10 +71,27 @@ class MainBottomPanel extends JPanel {
    * the selected user.
    */
   private void makeSelectUserBox() {
-    this.selectedUserBox = new JComboBox<>(Utils.convertToStringArray(model.getListOfUser()));
+    this.selectedUserBox = new JComboBox<>(convertToStringArray(model.getListOfUser()));
     this.selectedUserBox.setSelectedItem(this.selectedUsername);
     this.add(selectedUserBox);
     this.selectedUserBox.setActionCommand("Select User Box");
+  }
+
+  /**
+   * This method converts a given list of users to an array of users
+   * to use in the JComboBox and select users. This is used in the
+   * mouse clicked method which opens the event dialogue box with the
+   * list of users in the event.
+   *
+   * @param users the list of users in the event
+   * @return a mirroring array of users
+   */
+  private static String[] convertToStringArray(List<IUser> users) {
+    String[] usernames = new String[users.size()];
+    for (int index = 0; index < users.size(); index++) {
+      usernames[index] = users.get(index).toString();
+    }
+    return usernames;
   }
 
 
@@ -91,26 +109,59 @@ class MainBottomPanel extends JPanel {
     createEvent.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        List<User> userList = new ArrayList<>(model.getListOfUser());
-        userList.remove(Utils.findUser(selectedUsername, model.getListOfUser()));
-        EventView newEvent = new EventFrameView(Utils.convertToStringArray(userList),
+        List<IUser> userList = new ArrayList<>(model.getListOfUser());
+        userList.remove(findUser(selectedUsername, model.getListOfUser()));
+        EventView newEvent = new EventFrameView(convertToStringArray(userList),
                 selectedUsername);
         newEvent.addFeatures(features);
         newEvent.display();
+      }
+
+      /**
+       * Gets the User with the given usernamen in the given database.
+       *
+       * @param userName a String
+       * @param database a List of User
+       * @return a User
+       */
+      private static IUser findUser(String userName, List<IUser> database) {
+        for (IUser user : database) {
+          if (user.toString().equals(userName)) {
+            return user;
+          }
+        }
+        throw new IllegalArgumentException("User not found");
       }
     });
     scheduleEvent.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        List<User> notHost = new ArrayList<>(model.getListOfUser());
+        List<IUser> notHost = new ArrayList<>(model.getListOfUser());
         notHost.remove(
-                Utils.findUser(selectedUsername, model.getListOfUser()));
+                this.findUser(selectedUsername, model.getListOfUser()));
         EventView scheduleFrame =
-                new ScheduleFrame(Utils.convertToStringArray(notHost),
+                new ScheduleFrame(convertToStringArray(notHost),
                         selectedUsername);
         scheduleFrame.addFeatures(features);
         scheduleFrame.display();
       }
+
+      /**
+       * Gets the User with the given usernamen in the given database.
+       *
+       * @param userName a String
+       * @param database a List of User
+       * @return a User
+       */
+      private static IUser findUser(String userName, List<IUser> database) {
+        for (IUser user : database) {
+          if (user.toString().equals(userName)) {
+            return user;
+          }
+        }
+        throw new IllegalArgumentException("User not found");
+      }
+
     });
     this.add(createEvent);
     this.add(scheduleEvent);

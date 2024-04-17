@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.IEvent;
+import model.IUser;
 import model.PlannerModel;
 import model.User;
 
@@ -13,9 +14,9 @@ import model.User;
  */
 public class LenientStrat implements SchedulingStrategy {
   @Override
-  public IEvent chooseTime(PlannerModel model, User host, String name,
-                                 boolean isOnline, String location,
-                                 List<String> attendees, int duration) {
+  public IEvent chooseTime(PlannerModel model, IUser host, String name,
+                           boolean isOnline, String location,
+                           List<String> attendees, int duration) {
     List<String> invitees = new ArrayList<>(attendees);
     if(invitees.isEmpty()){
       return new WorkHoursStrat().chooseTime(model, host, name,

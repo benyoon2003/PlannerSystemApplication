@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class UserTest {
 
-  private User example;
+  private IUser example;
 
   private Event one;
 
