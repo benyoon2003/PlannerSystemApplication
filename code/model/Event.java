@@ -193,7 +193,8 @@ public final class Event implements IEvent {
       } else {
         try {
           attendee.addEvent(this);
-        } catch (IllegalArgumentException ignored) {
+        } catch (IllegalArgumentException e) {
+          throw new IllegalArgumentException("Invited Users Have Conflicting Events");
         }
       }
     }

@@ -134,4 +134,9 @@ public class NUPlannerController implements IFeatures {
       view.showError(er.getMessage());
     }
   }
+
+  @Override
+  public void toggleHostView() {
+    view.switchHostView();
+  }
 }

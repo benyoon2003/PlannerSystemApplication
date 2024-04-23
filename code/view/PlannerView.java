@@ -44,4 +44,10 @@ public interface PlannerView {
    */
   void showError(String msg);
 
+  /**
+   * Switches the view so that the user can see the events they are the host of.
+   */
+  void switchHostView();
+
+
 }
