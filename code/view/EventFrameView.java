@@ -5,13 +5,10 @@ import java.util.List;
 
 import javax.swing.*;
 
-import java.util.Objects;
-
 import controller.IFeatures;
 import model.Day;
 import model.IEvent;
 import model.IUser;
-import model.Utils;
 
 /**
  * The EventFrameView is a custom JFrame that implements EventView. It contains components
