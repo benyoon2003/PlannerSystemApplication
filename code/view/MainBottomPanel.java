@@ -1,22 +1,17 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.JPanel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
+import javax.swing.*;
 
 import controller.IFeatures;
 import model.IUser;
 import model.ReadOnlyPlannerModel;
-import model.User;
-import model.Utils;
 
 
 /**
@@ -42,6 +37,9 @@ class MainBottomPanel extends JPanel {
 
   private JButton createEvent;
   private JButton scheduleEvent;
+  private JButton toggleColor;
+
+  private boolean isColorToggled;
 
   private IFeatures features;
 
@@ -106,6 +104,7 @@ class MainBottomPanel extends JPanel {
     createEvent.setActionCommand("Create Event Main Button");
     scheduleEvent = new JButton("Schedule Event");
     scheduleEvent.setActionCommand("Schedule Event Button");
+    toggleColor = new JButton("Toggle host color");
     createEvent.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -163,8 +162,17 @@ class MainBottomPanel extends JPanel {
       }
 
     });
+
+    toggleColor.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        isColorToggled = !isColorToggled;
+      }
+    });
+
     this.add(createEvent);
     this.add(scheduleEvent);
+    this.add(toggleColor);
   }
 
   /**
@@ -176,6 +184,10 @@ class MainBottomPanel extends JPanel {
     return (String) this.selectedUserBox.getSelectedItem();
   }
 
+  boolean toggleColor() {
+    return isColorToggled;
+  }
+
   /**
    * Sets the listeners for the JButtons.
    *
@@ -185,6 +197,8 @@ class MainBottomPanel extends JPanel {
     this.features = features;
     selectedUserBox.addActionListener(evt ->
             features.switchUser(observeUserSelectionBox()));
+    toggleColor.addActionListener(evt ->
+            features.toggleColor());
   }
 
 }

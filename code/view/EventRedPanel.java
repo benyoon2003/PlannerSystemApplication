@@ -1,17 +1,12 @@
 package view;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.util.Objects;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import controller.IFeatures;
 import model.IEvent;

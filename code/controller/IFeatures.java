@@ -4,10 +4,7 @@ package controller;
 import java.util.List;
 
 import model.Day;
-import model.Event;
 import model.IEvent;
-import model.User;
-import view.EventView;
 
 /**
  * This is the command interface for the controller in which commands are executed.
@@ -62,6 +59,8 @@ public interface IFeatures {
    * @param username the user being selected
    */
   void switchUser(String username);
+
+  void toggleColor();
 
   /***
    * The higher level call to add a schedule to the system
