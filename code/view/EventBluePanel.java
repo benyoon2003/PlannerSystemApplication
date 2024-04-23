@@ -2,20 +2,18 @@ package view;
 
 import java.awt.*;
 
-import controller.IFeatures;
-import model.IEvent;
+public class EventBluePanel extends EventPanelDecorator{
 
-public class EventBluePanel implements EventPanel{
+  EventPanel ep;
 
-  EventRedPanel ep;
-
-  EventBluePanel(EventRedPanel ep) {
-    this.ep = ep;
+  EventBluePanel(EventPanel ep) {
+    super(ep);
   }
 
   @Override
-  public void paintComponent(Graphics g){
-    super.paintComponent(g);
-    this.setBackground(Color.BLUE);
+  void decorator() {
+    ep.paintColor(Color.BLUE);
   }
+
+
 }

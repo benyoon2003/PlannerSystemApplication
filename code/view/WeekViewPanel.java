@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.util.Objects;
 import java.util.List;
@@ -14,12 +13,9 @@ import javax.swing.JPanel;
 
 import controller.IFeatures;
 import model.Day;
-import model.Event;
 import model.IEvent;
 import model.IUser;
 import model.ReadOnlyPlannerModel;
-import model.User;
-import model.Utils;
 
 /**
  * This panel is used to view a users schedule for the week. It shows 7 columns
@@ -119,7 +115,7 @@ class WeekViewPanel extends JPanel {
     } else {
       drawEndOfEvent(e, e.observeStartDayOfEvent());
     }
-    this.add(new EventRedPanel(e,
+    this.add(new EventPanelIMPL(e,
             daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
             verticalLineOffset, end - start,
             horizontalLineOffset, convertToStringArray(model.getListOfUser()),
@@ -161,13 +157,13 @@ class WeekViewPanel extends JPanel {
     int horizontalLineOffset = this.bounds.height / 23;
     if (daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1).equals(e.observeEndDayOfEvent())) {
       int end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
-      this.add(new EventRedPanel(e,
+      this.add(new EventPanelIMPL(e,
               daysOrder.indexOf(e.observeEndDayOfEvent()) * verticalLineOffset, 0,
               verticalLineOffset, end,
               horizontalLineOffset, convertToStringArray(model.getListOfUser()),
               this.selectedUsername, this.feature));
     } else {
-      this.add(new EventRedPanel(e,
+      this.add(new EventPanelIMPL(e,
               (daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
               verticalLineOffset, this.bounds.height,
               horizontalLineOffset, convertToStringArray(model.getListOfUser()),
