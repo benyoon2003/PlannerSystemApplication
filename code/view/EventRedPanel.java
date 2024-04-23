@@ -19,7 +19,7 @@ import model.IEvent;
  * @implNote This is package protected because there should not be any leakage of the Event panel
  *           information and this should be contained in the view.
  */
-class EventRedPanel extends JPanel implements MouseListener {
+class EventRedPanel extends JPanel implements MouseListener, EventPanel {
 
   /**
    * Fields for the event panel. These fields set the panels that represent
