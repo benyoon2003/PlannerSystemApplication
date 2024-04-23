@@ -40,6 +40,8 @@ class WeekViewPanel extends JPanel {
 
   private IFeatures feature;
 
+  private boolean hostView;
+
 
 
   /**
@@ -52,6 +54,7 @@ class WeekViewPanel extends JPanel {
   WeekViewPanel(ReadOnlyPlannerModel model, String selectedUsername) {
     this.model = Objects.requireNonNull(model);
     this.selectedUsername = selectedUsername;
+    this.hostView = false;
   }
 
 
@@ -175,6 +178,10 @@ class WeekViewPanel extends JPanel {
 
   void addFeature(IFeatures features){
     this.feature = features;
+  }
+
+  void switchView(){
+    this.hostView = !this.hostView;
   }
 
 }

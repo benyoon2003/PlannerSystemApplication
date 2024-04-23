@@ -60,7 +60,6 @@ public interface IFeatures {
    */
   void switchUser(String username);
 
-  void toggleColor();
 
   /***
    * The higher level call to add a schedule to the system
@@ -91,6 +90,6 @@ public interface IFeatures {
    * This is a higher level call to change the view so that the host can see
    * the event they are hosts of.
    */
-  void toggleHostView();
+  void toggleColor();
 
 }

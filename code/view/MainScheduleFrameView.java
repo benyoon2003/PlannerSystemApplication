@@ -155,5 +155,10 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     JOptionPane.showMessageDialog(this, msg);
   }
 
+  @Override
+  public void switchHostView() {
+    this.planner.switchView();
+  }
+
 
 }

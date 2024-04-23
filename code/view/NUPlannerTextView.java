@@ -102,4 +102,9 @@ public class NUPlannerTextView implements PlannerView {
   public void showError(String msg) {
     // Unimplemented
   }
+
+  @Override
+  public void switchHostView() {
+
+  }
 }

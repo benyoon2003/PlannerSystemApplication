@@ -123,7 +123,7 @@ class MainBottomPanel extends JPanel {
        * @param database a List of User
        * @return a User
        */
-      private static IUser findUser(String userName, List<IUser> database) {
+      private IUser findUser(String userName, List<IUser> database) {
         for (IUser user : database) {
           if (user.toString().equals(userName)) {
             return user;
@@ -152,7 +152,7 @@ class MainBottomPanel extends JPanel {
        * @param database a List of User
        * @return a User
        */
-      private static IUser findUser(String userName, List<IUser> database) {
+      private IUser findUser(String userName, List<IUser> database) {
         for (IUser user : database) {
           if (user.toString().equals(userName)) {
             return user;

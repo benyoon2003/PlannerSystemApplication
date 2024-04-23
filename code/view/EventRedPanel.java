@@ -42,6 +42,7 @@ class EventRedPanel extends JPanel implements MouseListener {
 
   private IFeatures features;
 
+
   /**
    * Constructs an EventRedPanel with the given event, coordinates, and size specifications.
    *
@@ -66,6 +67,7 @@ class EventRedPanel extends JPanel implements MouseListener {
     this.availUsers = availUsers;
     this.selectedUsername = selected;
     this.features = features;
+
   }
 
   /**
