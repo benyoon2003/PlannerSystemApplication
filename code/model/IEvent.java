@@ -29,9 +29,9 @@ public interface IEvent {
 
   int observeEndTimeOfEvent();
 
-  List<User> observeInvitedUsers();
+  List<IUser> observeInvitedUsers();
 
-  User observeHost();
+  IUser observeHost();
 
   String toString();
 
@@ -69,9 +69,9 @@ public interface IEvent {
 
   void setEndDay(Day endDay);
 
-  void setInvitedUsers(List<User> users);
+  void setInvitedUsers(List<IUser> users);
 
-  void setHost(User user);
+  void setHost(IUser user);
 
   /**
    * This method is only enacted when the host removes the event. This

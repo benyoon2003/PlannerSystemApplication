@@ -7,6 +7,7 @@ import controller.IFeatures;
 import model.Day;
 import model.Event;
 import model.IEvent;
+import model.IUser;
 import model.ReadOnlyPlannerModel;
 import model.User;
 import model.Utils;
@@ -48,7 +49,7 @@ public class NUPlannerTextView implements PlannerView {
   @Override
   public String toString() {
     String output = "";
-    for (User user : model.getListOfUser()) {
+    for (IUser user : model.getListOfUser()) {
       output += "User: " + user.toString() + "\n";
       output += "Sunday: \n" + daySchedule(user.toString(), Day.Sunday);
       output += "Monday: \n" + daySchedule(user.toString(), Day.Monday);

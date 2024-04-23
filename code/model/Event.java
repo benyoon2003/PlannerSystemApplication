@@ -23,9 +23,9 @@ public final class Event implements IEvent {
   private int startTime;
   private Day endDay;
   private int endTime;
-  private List<User> invitedUsers;
+  private List<IUser> invitedUsers;
 
-  private User host;
+  private IUser host;
 
   /**
    * Constructor for an event.
@@ -42,7 +42,7 @@ public final class Event implements IEvent {
    */
   Event(String name, String location, boolean online,
         Day startDay, int startTime, Day endDay,
-        int endTime, List<User> invitedUsers) {
+        int endTime, List<IUser> invitedUsers) {
     if (startDay.equals(endDay) && startTime == endTime) {
       throw new IllegalArgumentException("Invalid Times for an Event");
     }
@@ -144,7 +144,7 @@ public final class Event implements IEvent {
    * @return the invited users of the event
    */
   @Override
-  public List<User> observeInvitedUsers() {
+  public List<IUser> observeInvitedUsers() {
     return this.invitedUsers;
   }
 
@@ -153,7 +153,7 @@ public final class Event implements IEvent {
    *
    * @param attendees a list of User
    */
-  public void setInvitedUsers(List<User> attendees) {
+  public void setInvitedUsers(List<IUser> attendees) {
     if (attendees == null) {
       throw new IllegalArgumentException("Given List cannot be null");
     }
@@ -170,13 +170,13 @@ public final class Event implements IEvent {
    * @param old    list of User
    * @param update list of User
    */
-  private void updateUsers(List<User> old, List<User> update) {
-    for (User u : old) {
+  private void updateUsers(List<IUser> old, List<IUser> update) {
+    for (IUser u : old) {
       if (!update.contains(u)) {
         u.observeSchedule().remove(this);
       }
     }
-    for (User u : update) {
+    for (IUser u : update) {
       if (!u.observeSchedule().contains(this)) {
         u.addEvent(this);
       }
@@ -187,7 +187,7 @@ public final class Event implements IEvent {
    * Adds this event to the schedule of every user in the list of invitees.
    */
   void sendInvite() {
-    for (User attendee : this.invitedUsers) {
+    for (IUser attendee : this.invitedUsers) {
       if (attendee.equals(this.host)) {
         attendee.addEvent(this);
       } else {
@@ -204,7 +204,7 @@ public final class Event implements IEvent {
    * Removes this event from the schedule of all users in the list of invitees.
    */
   public void removeAll() {
-    for (User attendee : this.invitedUsers) {
+    for (IUser attendee : this.invitedUsers) {
       attendee.observeSchedule().remove(this);
     }
   }
@@ -215,7 +215,7 @@ public final class Event implements IEvent {
    * @return the host of the event.
    */
   @Override
-  public User observeHost() {
+  public IUser observeHost() {
     return this.host;
   }
 
@@ -295,7 +295,7 @@ public final class Event implements IEvent {
    *
    * @param newHost a User
    */
-  public void setHost(User newHost) {
+  public void setHost(IUser newHost) {
     this.host = newHost;
   }
 
@@ -306,7 +306,7 @@ public final class Event implements IEvent {
    */
   private String convertListOfInvitees() {
     String invitees = "";
-    for (User u : this.invitedUsers) {
+    for (IUser u : this.invitedUsers) {
       invitees += u.toString() + "\n       ";
     }
     return invitees;

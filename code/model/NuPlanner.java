@@ -8,7 +8,7 @@ import java.util.List;
  * can visualize multiple users’ schedules and manipulate events on them.
  */
 public final class NuPlanner implements PlannerModel {
-  private List<User> database;
+  private List<IUser> database;
 
   /**
    * Constructs an NuPlanner with an empty database.
@@ -24,19 +24,19 @@ public final class NuPlanner implements PlannerModel {
    * @implNote The passed in list of User will always be valid if the planner
    *           is instantiated following the steps described in the README
    */
-  public NuPlanner(List<User> database) {
+  public NuPlanner(List<IUser> database) {
     this.database = database;
   }
 
   @Override
   public void uploadSchedule(String path) {
-    User user = Utils.readXML(path, this.database);
+    IUser user = Utils.readXML(path, this.database);
     this.addUser(user);
   }
 
   @Override
   public void saveSchedule() {
-    for (User user : this.database) {
+    for (IUser user : this.database) {
       Utils.writeToFile(user, "");
     }
   }
@@ -48,8 +48,8 @@ public final class NuPlanner implements PlannerModel {
    * @param users the list of string of usernames
    * @return the list of users in the same order.
    */
-  private List<User> mapUserList(List<String> users) {
-    List<User> userList = new ArrayList<>();
+  private List<IUser> mapUserList(List<String> users) {
+    List<IUser> userList = new ArrayList<>();
     for (String user : users) {
       userList.add(Utils.findUser(user, this.database));
     }
@@ -65,7 +65,7 @@ public final class NuPlanner implements PlannerModel {
   public Event createEvent(String user, String name, String location, boolean online,
                            Day startDay, int startTime, Day endDay,
                            int endTime, List<String> invitedUsers) {
-    User u = Utils.findUser(user, this.database);
+    IUser u = Utils.findUser(user, this.database);
     if (this.database.contains(u)) {
       List<String> invitedUserCopy = new ArrayList<>(invitedUsers);
       invitedUserCopy.add(0, user);
@@ -81,7 +81,7 @@ public final class NuPlanner implements PlannerModel {
 
   @Override
   public void removeEvent(String user, IEvent e) {
-    User u = Utils.findUser(user, this.database);
+    IUser u = Utils.findUser(user, this.database);
     if (this.database.contains(u)) {
       if (e.observeHost().equals(u)) {
         e.removeAll();
@@ -115,7 +115,7 @@ public final class NuPlanner implements PlannerModel {
 
   @Override
   public List<IEvent> eventsAtThisTime(String user, int time) {
-    User selected = Utils.findUser(user, this.database);
+    IUser selected = Utils.findUser(user, this.database);
     List<IEvent> list = new ArrayList<>();
     for (IEvent e : selected.observeSchedule()) {
       if (e.observeStartTimeOfEvent() == time) {
@@ -131,19 +131,19 @@ public final class NuPlanner implements PlannerModel {
   }
 
   @Override
-  public User addUser(String name) {
+  public IUser addUser(String name) {
     try {
       Utils.findUser(name, this.database);
       throw new IllegalArgumentException("Given Name already exists");
     } catch (IllegalArgumentException e) {
-      User newUser = new User(name, List.of());
+      IUser newUser = new User(name, List.of());
       this.database.add(newUser);
       return newUser;
     }
   }
 
   @Override
-  public void addUser(User user) {
+  public void addUser(IUser user) {
     try {
       Utils.findUser(user.toString(), this.database);
     } catch (IllegalArgumentException ignored) {
@@ -152,7 +152,7 @@ public final class NuPlanner implements PlannerModel {
 
     try {
       for (IEvent e : user.observeSchedule()) {
-        User userInDatabase = Utils.findUser(user.toString(), this.database);
+        IUser userInDatabase = Utils.findUser(user.toString(), this.database);
 
         // Add event from new schedule if it doesn't conflict with pre-existing user's schedule
         userInDatabase.addEvent(e);
@@ -166,12 +166,12 @@ public final class NuPlanner implements PlannerModel {
 
   @Override
   public List<IEvent> scheduleOnDay(String user, Day day) {
-    User selected = Utils.findUser(user, this.database);
+    IUser selected = Utils.findUser(user, this.database);
     return selected.eventsOnDay(day);
   }
 
   @Override
-  public List<User> getListOfUser() {
+  public List<IUser> getListOfUser() {
     return this.database;
   }
 
@@ -179,7 +179,7 @@ public final class NuPlanner implements PlannerModel {
   @Override
   public List<IEvent> mainSchedule() {
     List<IEvent> events = new ArrayList<>();
-    for (User u : this.database) {
+    for (IUser u : this.database) {
       events.addAll(u.observeSchedule());
     }
     return events;

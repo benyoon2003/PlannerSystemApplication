@@ -10,7 +10,7 @@ import java.util.Objects;
  * This is the class for Users in the planner system. A User is a person in the planner system
  * with a username and a schedule.
  */
-public class User {
+public class User implements IUser {
   private String uid;
   private List<IEvent> schedule;
 
@@ -120,7 +120,7 @@ public class User {
    *
    * @param e the event wanting to be added
    */
-  void addEvent(IEvent e) {
+  public void addEvent(IEvent e) {
     List<IEvent> copy = new ArrayList<>(this.schedule);
     copy.add(e);
     if (!conflict(copy)) {
@@ -145,10 +145,6 @@ public class User {
       }
     }
     return events;
-  }
-
-  public List<IEvent> userEvents() {
-    return this.schedule;
   }
 
 

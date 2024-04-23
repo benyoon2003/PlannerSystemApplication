@@ -19,19 +19,19 @@ public class NuPlannerTest {
   private PlannerModel example;
   private PlannerModel example2;
 
-  private User ben;
+  private IUser ben;
 
-  private User nico;
+  private IUser nico;
 
-  private User lucia;
-  private User patrick;
-  private User spongebob;
-  private User squidward;
+  private IUser lucia;
+  private IUser patrick;
+  private IUser spongebob;
+  private IUser squidward;
 
   private IEvent e1;
 
   private void exampleNuPlanner() {
-    this.example = new NuPlanner(new ArrayList<User>());
+    this.example = new NuPlanner(new ArrayList<IUser>());
     ben = this.example.addUser("Ben");
     nico = this.example.addUser("Nico");
     e1 = this.example.createEvent("Ben", "Working on OOD", "Snell", false,

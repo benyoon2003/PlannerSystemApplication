@@ -6,6 +6,7 @@ import java.util.Objects;
 import model.Day;
 import model.Event;
 import model.IEvent;
+import model.IUser;
 import model.PlannerModel;
 import model.User;
 import model.Utils;
@@ -21,7 +22,7 @@ import view.PlannerView;
 public class NUPlannerController implements IFeatures {
   private final PlannerModel model;
   private final PlannerView view;
-  private User host;
+  private IUser host;
   private final SchedulingStrategy strat;
 
   /**
@@ -52,7 +53,7 @@ public class NUPlannerController implements IFeatures {
    * @param host      a User
    */
   public NUPlannerController(PlannerModel model, SchedulingStrategy strat,
-                             PlannerView view, User host) {
+                             PlannerView view, IUser host) {
     this.model = Objects.requireNonNull(model);
     this.strat = Objects.requireNonNull(strat);
     this.view = Objects.requireNonNull(view);
@@ -91,7 +92,7 @@ public class NUPlannerController implements IFeatures {
   public void removeEvent(String user, IEvent eventToRemove) {
     try {
       model.removeEvent(user, eventToRemove);
-      for (User t: eventToRemove.observeInvitedUsers()) {
+      for (IUser t: eventToRemove.observeInvitedUsers()) {
         System.out.println(t.toString());
       }
       view.reMakeView(this.host.toString(), this);
@@ -118,7 +119,7 @@ public class NUPlannerController implements IFeatures {
 
   @Override
   public void saveSchedule(String path) {
-    for (User u : model.getListOfUser()) {
+    for (IUser u : model.getListOfUser()) {
       Utils.writeToFile(u, path);
     }
   }
