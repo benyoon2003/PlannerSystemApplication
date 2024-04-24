@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import controller.IFeatures;
 import model.Day;
+import model.Event;
 import model.IEvent;
 import model.IUser;
 import model.ReadOnlyPlannerModel;
@@ -47,10 +48,10 @@ class WeekViewPanel extends JPanel {
    * @param model    the given model being viewed
    * @param selectedUsername the selected user for the view.
    */
-  WeekViewPanel(ReadOnlyPlannerModel model, String selectedUsername) {
+  WeekViewPanel(ReadOnlyPlannerModel model, String selectedUsername, boolean hostView) {
     this.model = Objects.requireNonNull(model);
     this.selectedUsername = selectedUsername;
-    this.hostView = false;
+    this.hostView = hostView;
   }
 
 
@@ -115,7 +116,7 @@ class WeekViewPanel extends JPanel {
     } else {
       drawEndOfEvent(e, e.observeStartDayOfEvent());
     }
-    this.add(new EventPanelIMPL(e,
+    this.add(colorDecorator(e,
             daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
             verticalLineOffset, end - start,
             horizontalLineOffset, convertToStringArray(model.getListOfUser()),
@@ -157,13 +158,13 @@ class WeekViewPanel extends JPanel {
     int horizontalLineOffset = this.bounds.height / 23;
     if (daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1).equals(e.observeEndDayOfEvent())) {
       int end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
-      this.add(new EventPanelIMPL(e,
+      this.add(colorDecorator(e,
               daysOrder.indexOf(e.observeEndDayOfEvent()) * verticalLineOffset, 0,
               verticalLineOffset, end,
               horizontalLineOffset, convertToStringArray(model.getListOfUser()),
               this.selectedUsername, this.feature));
     } else {
-      this.add(new EventPanelIMPL(e,
+      this.add(colorDecorator(e,
               (daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
               verticalLineOffset, this.bounds.height,
               horizontalLineOffset, convertToStringArray(model.getListOfUser()),
@@ -176,8 +177,16 @@ class WeekViewPanel extends JPanel {
     this.feature = features;
   }
 
-  void switchView(){
-    this.hostView = !this.hostView;
+
+  EventPanel colorDecorator(IEvent e, int x, int y, int width, int height, int horiz,
+                            String[] availUsers, String selected, IFeatures features){
+    if(this.hostView && this.selectedUsername.equals(e.observeHost().toString())){
+      return new EventBluePanel(e, x, y, width, height, horiz, availUsers,
+              selected,features);
+    }else{
+      return new EventRedPanel(e, x, y, width, height, horiz, availUsers,
+              selected,features);
+    }
   }
 
 }

@@ -40,6 +40,8 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
 
   private IFeatures feature;
 
+  private boolean hostView;
+
 
   /**
    * Creates a default main frame view that displays the schedule of the first
@@ -55,15 +57,17 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
     this.selected = this.model.getListOfUser().get(0).toString();
-    this.planner = new WeekViewPanel(this.model, this.selected);
+    this.hostView = false;
+    this.planner = new WeekViewPanel(this.model, this.selected, this.hostView);
     this.bottom = new MainBottomPanel(this.model,
-            selected);
+            selected, this.hostView);
     this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
     this.add(mainPanel);
     makeFileChooser();
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
+    this.hostView = false;
   }
 
   /**
@@ -118,8 +122,8 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.getContentPane().removeAll();
     this.mainPanel = new JPanel();
     this.mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-    this.planner = new WeekViewPanel(this.model, selectedUsername);
-    this.bottom = new MainBottomPanel(this.model, selectedUsername);
+    this.planner = new WeekViewPanel(this.model, selectedUsername, this.hostView);
+    this.bottom = new MainBottomPanel(this.model, selectedUsername, this.hostView);
     this.selected = selectedUsername;
     this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
@@ -156,8 +160,8 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   }
 
   @Override
-  public void switchHostView() {
-    this.planner.switchView();
+  public void HostView() {
+    this.hostView = !this.hostView;
   }
 
 

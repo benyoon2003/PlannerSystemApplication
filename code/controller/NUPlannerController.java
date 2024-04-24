@@ -137,8 +137,10 @@ public class NUPlannerController implements IFeatures {
   }
 
   @Override
-  public void toggleColor() {
-    view.switchHostView();
-    view.reMakeView(this.host.toString(), this);
+  public void switchHostView() {
+    this.view.HostView();
+    this.view.reMakeView(this.host.toString(), this);
   }
+
+
 }

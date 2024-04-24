@@ -2,17 +2,18 @@ package view;
 
 import java.awt.*;
 
-public class EventBluePanel extends EventPanelDecorator{
+import controller.IFeatures;
+import model.IEvent;
 
-  EventPanel ep;
+public class EventBluePanel extends EventPanel {
 
-  EventBluePanel(EventPanel ep) {
-    super(ep);
-  }
 
-  @Override
-  void decorator() {
-    ep.paintColor(Color.BLUE);
+
+  EventBluePanel(IEvent e, int x, int y, int width, int height, int horiz,
+                 String[] availUsers, String selected, IFeatures features){
+    super(e, x, y, width, height, horiz, availUsers,
+            selected,features);
+    this.setBackground(Color.BLUE);
   }
 
 

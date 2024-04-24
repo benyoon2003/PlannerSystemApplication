@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import controller.IFeatures;
 import model.IUser;
+import model.PlannerModel;
 import model.ReadOnlyPlannerModel;
 
 
@@ -39,9 +40,11 @@ class MainBottomPanel extends JPanel {
   private JButton scheduleEvent;
   private JButton toggleColor;
 
-  private boolean isColorToggled;
+  boolean isColorToggled;
 
   private IFeatures features;
+
+
 
 
   /**
@@ -51,12 +54,12 @@ class MainBottomPanel extends JPanel {
    * @param model a ReadOnlyPlannerModel
    * @param selectedUsername is the user that is currently selected
    */
-  MainBottomPanel(ReadOnlyPlannerModel model, String selectedUsername) {
+  MainBottomPanel(ReadOnlyPlannerModel model, String selectedUsername, boolean hostView) {
     this.model = Objects.requireNonNull(model);
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(800, -600));
     this.selectedUsername = selectedUsername;
-
+    this.isColorToggled = hostView;
     makeSelectUserBox();
     makeEventButtons();
 
@@ -163,16 +166,18 @@ class MainBottomPanel extends JPanel {
 
     });
 
-    toggleColor.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        isColorToggled = !isColorToggled;
-      }
-    });
+    toggleColor.addActionListener(e -> switchColor());
 
     this.add(createEvent);
     this.add(scheduleEvent);
     this.add(toggleColor);
+  }
+
+  private void switchColor(){
+    this.isColorToggled = !this.isColorToggled;
+  }
+  boolean returnColor(){
+    return this.isColorToggled;
   }
 
   /**
@@ -184,9 +189,7 @@ class MainBottomPanel extends JPanel {
     return (String) this.selectedUserBox.getSelectedItem();
   }
 
-  boolean toggleColor() {
-    return isColorToggled;
-  }
+
 
   /**
    * Sets the listeners for the JButtons.
@@ -198,7 +201,7 @@ class MainBottomPanel extends JPanel {
     selectedUserBox.addActionListener(evt ->
             features.switchUser(observeUserSelectionBox()));
     toggleColor.addActionListener(evt ->
-            features.toggleColor());
+            features.switchHostView());
   }
 
 }

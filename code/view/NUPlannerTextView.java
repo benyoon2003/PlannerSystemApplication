@@ -104,7 +104,8 @@ public class NUPlannerTextView implements PlannerView {
   }
 
   @Override
-  public void switchHostView() {
+  public void HostView() {
 
   }
+
 }

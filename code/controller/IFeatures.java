@@ -86,10 +86,8 @@ public interface IFeatures {
                      boolean isOnline, String location,
                      List<String> attendees, int duration);
 
-  /**
-   * This is a higher level call to change the view so that the host can see
-   * the event they are hosts of.
-   */
-  void toggleColor();
+
+  void switchHostView();
+
 
 }
