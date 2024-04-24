@@ -159,6 +159,9 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     JOptionPane.showMessageDialog(this, msg);
   }
 
+  /**
+   * This method switches the hostview call from the controller.
+   */
   @Override
   public void HostView() {
     this.hostView = !this.hostView;

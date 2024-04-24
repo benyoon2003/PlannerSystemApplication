@@ -13,7 +13,7 @@ public class EventBluePanel extends EventPanel {
                  String[] availUsers, String selected, IFeatures features){
     super(e, x, y, width, height, horiz, availUsers,
             selected,features);
-    this.setBackground(Color.BLUE);
+    this.setBackground(new Color(51,204,255));
   }
 
 

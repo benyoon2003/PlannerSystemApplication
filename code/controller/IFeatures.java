@@ -87,6 +87,10 @@ public interface IFeatures {
                      List<String> attendees, int duration);
 
 
+  /**
+   * This method is a high level call from the user to switch the view to a host view
+   * in which the user can see which events they are the host of.
+   */
   void switchHostView();
 
 

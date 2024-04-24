@@ -166,19 +166,13 @@ class MainBottomPanel extends JPanel {
 
     });
 
-    toggleColor.addActionListener(e -> switchColor());
 
     this.add(createEvent);
     this.add(scheduleEvent);
     this.add(toggleColor);
   }
 
-  private void switchColor(){
-    this.isColorToggled = !this.isColorToggled;
-  }
-  boolean returnColor(){
-    return this.isColorToggled;
-  }
+
 
   /**
    * Observes the selected user from the JComboBox.
