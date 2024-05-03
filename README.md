@@ -1,5 +1,4 @@
-This project was designed by Senior Developers Ben Yoon and Nico Cruz.
-All Rights Reserved.
+PLANNER SYSTEM
 
 Overview:
     This project and subsequent code are attempting to solve an organizational
