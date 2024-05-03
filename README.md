@@ -1,5 +1,3 @@
-PLANNER SYSTEM
-
 Overview:
     This project and subsequent code are attempting to solve an organizational
 problem by creating a planner system in which users can make events and invite
